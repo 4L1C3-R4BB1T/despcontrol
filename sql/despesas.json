@@ -1,0 +1,30 @@
+[
+    {
+        "descricao": "Compra no supermercado",
+        "valor": 150.75,
+        "data": "2024-06-12",
+        "id_categoria": 1,
+        "id_usuario": 1
+    },
+    {
+        "descricao": "Passagem de ônibus",
+        "valor": 3.50,
+        "data": "2024-06-12",
+        "id_categoria": 2,
+        "id_usuario": 1
+    },
+    {
+        "descricao": "Cinema",
+        "valor": 30.00,
+        "data": "2024-06-12",
+        "id_categoria": 3,
+        "id_usuario": 2
+    },
+    {
+        "descricao": "Curso online",
+        "valor": 200.00,
+        "data": "2024-06-12",
+        "id_categoria": 4,
+        "id_usuario": 2
+    }
+]

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block subtitulo %}Página Principal{% endblock %}
+{% block conteudo %}
+
+{% if not usuario or not usuario.nome -%}
+<h1 class="display-5">nao logado</h1>
+{%- else: -%}
+<h1 class="display-5">logado</h1>
+{%- endif -%}
+
+{% endblock %}

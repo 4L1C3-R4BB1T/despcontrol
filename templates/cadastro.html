@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block subtitulo %}Cadastro{% endblock %}
+{% block conteudo %}
+<div class="col-12 col-lg-6 mx-auto">
+    <h1 class="display-5"><b>Cadastre-se</b></h1>
+    <hr>
+    <form class="row json-form" method="post" action="/post_cadastro">
+        <div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nome" name="nome" placeholder=" ">
+                <label for="nome">Nome Completo</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" name="email" placeholder=" ">
+                <label for="email">E-mail</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="senha" name="senha" placeholder=" ">
+                <label for="senha">Senha</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="confsenha" name="confirmacao_senha" placeholder=" ">
+                <label for="confsenha">Confirmação de Senha</label>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-dark btn-lg">Cadastrar</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/static/js/formToJson.js"></script>
+<script src="/static/js/inputMasks.js"></script>
+{% endblock %}

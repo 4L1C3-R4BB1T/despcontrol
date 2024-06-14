@@ -1,0 +1,14 @@
+[
+    {
+        "nome": "João Silva",
+        "email": "joao@email.com",
+        "senha": "$2a$12$n3wcSiJs1bwF2lfigs019Obsd.QdUcIxc3ec.WheTzvYF2Cg.haP6",
+        "token": ""
+    },
+    {
+        "nome": "Maria Oliveira",
+        "email": "maria@email.com",
+        "senha": "$2a$12$n3wcSiJs1bwF2lfigs019Obsd.QdUcIxc3ec.WheTzvYF2Cg.haP6",
+        "token": ""
+    }
+]
