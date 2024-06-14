@@ -18,6 +18,6 @@ uvicorn main:app --reload
 
 ---
 
-## Modelo
+## 📌 Modelo
 
 ![Modelo](https://github.com/4L1C3-R4BB1T/despcontrol/blob/main/modelo.png)
