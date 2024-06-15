@@ -10,41 +10,41 @@
 <hr>
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3 mb-3">
     {% if not despesas%}
-        <div class="col-lg-6 mx-auto text-center">
-            <p class="lead mt-5">Não há despesas cadastradas!</p>
-            <i class="bi bi-database-x fs-1"></i>
-        </div>
+    <div class="col-lg-6 mx-auto text-center">
+        <p class="lead mt-5">Não há despesas cadastradas!</p>
+        <i class="bi bi-database-x fs-1"></i>
+    </div>
     {%- else: -%}
-        {% for d in despesas %}
-        <div class="col">
-            <div class="card h-100">
-                <div class="d-flex justify-content-between mx-3 mt-3">
-                    <span class="bg-info bg-opacity-75 px-2 py-1 rounded-3 fw-semibold">{{ d.nome_categoria }}</span>
-                    <div class="d-flex flex-row ms-3 gap-3">
-                        <a href="">
-                            <i class="bi bi-pencil-fill text-warning fs-4"></i>
-                        </a>
-                        <a href="">
-                            <i class="bi bi-trash3-fill text-danger fs-4"></i>
-                        </a>
-                    </div>
+    {% for d in despesas %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="d-flex justify-content-between mx-3 mt-3">
+                <span class="bg-info bg-opacity-75 px-2 py-1 rounded-3 fw-semibold">{{ d.nome_categoria }}</span>
+                <div class="d-flex flex-row ms-3 gap-3">
+                    <a href="">
+                        <i class="bi bi-pencil-fill text-warning fs-4"></i>
+                    </a>
+                    <a href="">
+                        <i class="bi bi-trash3-fill text-danger fs-4"></i>
+                    </a>
                 </div>
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <h5 class="card-title">
-                        {{ d.descricao }}
-                    </h5>
-                    <div>
-                        <p class="card-text">
-                            {{ d.data }}
-                        </p>
-                        <p class="lead text-danger fw-bold mb-0">
-                            R$ {{ "{:,.2f}".format(d.valor) }}
-                        </p>
-                    </div>
+            </div>
+            <div class="card-body d-flex flex-column justify-content-between">
+                <h5 class="card-title">
+                    {{ d.descricao }}
+                </h5>
+                <div>
+                    <p class="card-text">
+                        {{ d.data }}
+                    </p>
+                    <p class="lead text-danger fw-bold mb-0">
+                        R$ {{ "{:,.2f}".format(d.valor) }}
+                    </p>
                 </div>
             </div>
         </div>
-        {% endfor %}
+    </div>
+    {% endfor %}
     {%- endif -%}
 </div>
 
@@ -56,38 +56,38 @@
                 <h5 class="modal-title" id="cadastroDespesaLabel">Cadastrar Despesa</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form class="row json-form" method="post" action="/post_cadastro">
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="descricao" name="descricao" placeholder=" ">
-                            <label for="descricao">Descrição</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="valor" name="valor" placeholder=" ">
-                            <label for="valor">Valor</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="data" name="data" placeholder=" ">
-                            <label for="data">Data</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="categoria" name="categoria">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                            <label for="confsenha">Categoria</label>
-                        </div>
+            <form class="row json-form p-3" method="post" action="/usuario/post_cadastro_despesa">
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="descricao" name="descricao" placeholder=" ">
+                        <label for="descricao">Descrição</label>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sair</button>
-                <button type="button" class="btn btn-success">Cadastrar</button>
-            </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="valor" name="valor" placeholder=" ">
+                        <label for="valor">Valor</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="data" name="data" placeholder=" ">
+                        <label for="data">Data</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="id_categoria" name="id_categoria">
+                            <option selected>Selecione uma categoria...</option>
+                            {% for c in categorias %}
+                            <option value="{{ c.id }}">{{ c.nome }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="id_categoria">Categoria</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sair</button>
+                    <button type="submit" class="btn btn-success">Cadastrar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+<script src="/static/js/formToJson.js"></script>
+<script src="/static/js/inputMasks.js"></script>
 {% endblock %}
