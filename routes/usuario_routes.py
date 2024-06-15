@@ -3,6 +3,7 @@ from fastapi.templating import Jinja2Templates
 
 from models.usuario_model import Usuario
 from repositories.despesa_repo import DespesaRepo
+from repositories.usuario_repo import UsuarioRepo
 from util.auth import obter_usuario_logado
 
 

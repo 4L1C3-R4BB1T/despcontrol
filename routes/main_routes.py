@@ -1,7 +1,7 @@
 import math
 from sqlite3 import DatabaseError
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from dtos.entrar_dto import EntrarDTO
@@ -117,3 +117,9 @@ async def post_entrar(entrar_dto: EntrarDTO, return_url: str = Query("/")):
     adicionar_mensagem_sucesso(response, "Entrada efetuada com sucesso.")
     adicionar_cookie_auth(response, token)
     return response
+
+
+@router.get("/sair")
+async def get_sair(usuario_logado: Usuario = Depends(obter_usuario_logado)):
+    UsuarioRepo.alterar_token(usuario_logado.id, None)
+    return RedirectResponse(url="/")
