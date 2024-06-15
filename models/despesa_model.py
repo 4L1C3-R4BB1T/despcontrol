@@ -10,3 +10,4 @@ class Despesa:
     data: Optional[str] = None
     id_categoria: Optional[int] = None
     id_usuario: Optional[int] = None
+    nome_categoria: Optional[str] = None

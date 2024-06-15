@@ -6,7 +6,7 @@ SQL_CRIAR_TABELA = """
         data DATETIME NOT NULL,
         id_categoria INTEGER NOT NULL,
         id_usuario INTEGER NOT NULL,
-        FOREIGN KEY (id_categoria) REFERENCES categoria(id)
+        FOREIGN KEY (id_categoria) REFERENCES categoria(id),
         FOREIGN KEY (id_usuario) REFERENCES usuario(id))
 """
 
@@ -60,9 +60,10 @@ SQL_OBTER_QUANTIDADE_PERIODO = """
     WHERE data BETWEEN ? AND ?
 """
 
-SQL_OBTER_POR_CLIENTE = """
-    SELECT id, descricao, valor, data, id_categoria
+SQL_OBTER_TODOS_POR_USUARIO = """
+    SELECT despesa.id, despesa.descricao, despesa.valor, despesa.data, despesa.id_categoria, despesa.id_usuario, categoria.nome AS nome_categoria
     FROM despesa
-    WHERE (id_usuario = ?) AND (data BETWEEN ? AND ?)
-    ORDER BY id DESC
+    INNER JOIN categoria ON despesa.id_categoria = categoria.id
+    WHERE despesa.id_usuario = ?
+    ORDER BY despesa.id DESC
 """

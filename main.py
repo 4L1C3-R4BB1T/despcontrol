@@ -5,7 +5,7 @@ import uvicorn
 from repositories.categoria_repo import CategoriaRepo
 from repositories.despesa_repo import DespesaRepo
 from repositories.usuario_repo import UsuarioRepo
-from routes import main_routes
+from routes import main_routes, usuario_routes
 from util.auth import atualizar_cookie_autenticacao
 from util.exceptions import configurar_excecoes
 
@@ -30,6 +30,7 @@ configurar_excecoes(app)
 app.mount(path="/static", app=StaticFiles(directory="static"), name="static")
 
 app.include_router(main_routes.router)
+app.include_router(usuario_routes.router)
 
 
 if __name__ == "__main__":

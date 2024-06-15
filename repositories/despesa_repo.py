@@ -104,6 +104,18 @@ class DespesaRepo:
             return None
 
     @classmethod
+    def obter_todos_por_usuario(cls, usuario_id: int) -> Optional[Despesa]:
+        try:
+            with obter_conexao() as conexao:
+                cursor = conexao.cursor()
+                tuplas = cursor.execute(SQL_OBTER_TODOS_POR_USUARIO, (usuario_id,)).fetchall()
+                despesas = [Despesa(*t) for t in tuplas]
+                return despesas
+        except sqlite3.Error as ex:
+            print(ex)
+            return None
+
+    @classmethod
     def inserir_despesas_json(cls, arquivo_json: str):
         if DespesaRepo.obter_quantidade() == 0:
             with open(arquivo_json, "r", encoding="utf-8") as arquivo:

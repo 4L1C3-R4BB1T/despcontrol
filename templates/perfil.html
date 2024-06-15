@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block subtitulo %}Perfil{% endblock %}
+{% block conteudo %}
+<div class="col-12 col-lg-6 mx-auto">
+    <h1 class="display-5"><b>Meu Perfil</b></h1>
+    <hr>
+    <form class="row">
+        <div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nome" placeholder=" " value="{{ usuario.nome }}">
+                <label for="nome">Nome Completo</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" placeholder=" " value="{{ usuario.email }}">
+                <label for="email">E-mail</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="senha" placeholder=" ">
+                <label for="senha">Senha</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="confsenha" placeholder=" ">
+                <label for="confsenha">Confirmação de Senha</label>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-dark btn-lg" type="submit">Alterar Meu Cadastro!</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

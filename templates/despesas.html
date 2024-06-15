@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block subtitulo %}Despesas{% endblock %}
+{% block conteudo %}
+<div class="d-flex justify-content-between align-items-center">
+    <h1 class="display-5">Despesas</h1>
+    <button type="button" class="btn btn-success rounded-5" data-bs-toggle="modal" data-bs-target="#cadastroDespesa">
+        <i class="bi bi-plus-circle-fill fs-4 text-light"></i>
+    </button>
+</div>
+<hr>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3 mb-3">
+    {% for d in despesas %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="d-flex justify-content-between mx-3 mt-3">
+                <span class="bg-info bg-opacity-75 px-2 py-1 rounded-3 fw-semibold">{{ d.nome_categoria }}</span>
+                <div class="d-flex flex-row ms-3 gap-3">
+                    <a href="">
+                        <i class="bi bi-pencil-fill text-warning fs-4"></i>
+                    </a>
+                    <a href="">
+                        <i class="bi bi-trash3-fill text-danger fs-4"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-body d-flex flex-column justify-content-between">
+                <h5 class="card-title">
+                    {{ d.descricao }}
+                </h5>
+                <div>
+                    <p class="card-text">
+                        {{ d.data }}
+                    </p>
+                    <p class="lead text-danger fw-bold mb-0">
+                        R$ {{ "{:,.2f}".format(d.valor) }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="cadastroDespesa" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cadastroDespesaLabel">Cadastrar Despesa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row json-form" method="post" action="/post_cadastro">
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="descricao" name="descricao" placeholder=" ">
+                            <label for="descricao">Descrição</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="valor" name="valor" placeholder=" ">
+                            <label for="valor">Valor</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="data" name="data" placeholder=" ">
+                            <label for="data">Data</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="categoria" name="categoria">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            <label for="confsenha">Categoria</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sair</button>
+                <button type="button" class="btn btn-success">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

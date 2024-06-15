@@ -26,5 +26,47 @@
         "data": "2024-06-12",
         "id_categoria": 4,
         "id_usuario": 2
+    },
+    {
+        "descricao": "Jantar em restaurante",
+        "valor": 80.00,
+        "data": "2024-06-13",
+        "id_categoria": 1,
+        "id_usuario": 1
+    },
+    {
+        "descricao": "Abastecimento de gasolina",
+        "valor": 120.00,
+        "data": "2024-06-14",
+        "id_categoria": 2,
+        "id_usuario": 1
+    },
+    {
+        "descricao": "Compra de roupas",
+        "valor": 250.00,
+        "data": "2024-06-15",
+        "id_categoria": 7,
+        "id_usuario": 1
+    },
+    {
+        "descricao": "Mensalidade academia",
+        "valor": 100.00,
+        "data": "2024-06-16",
+        "id_categoria": 5,
+        "id_usuario": 1
+    },
+    {
+        "descricao": "Bilhete de metrô",
+        "valor": 4.00,
+        "data": "2024-06-17",
+        "id_categoria": 2,
+        "id_usuario": 1
+    },
+    {
+        "descricao": "Compra de livros",
+        "valor": 60.00,
+        "data": "2024-06-18",
+        "id_categoria": 4,
+        "id_usuario": 1
     }
 ]

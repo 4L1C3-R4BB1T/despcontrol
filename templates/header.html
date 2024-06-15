@@ -27,8 +27,9 @@
                         Olá, <b>{{ usuario.nome }}</b>!
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item {{ 'active' if pagina_atual == '/usuario/despesas' }}" href="/usuario/despesas">Minha Despesas</a></li>
-                        <li><a class="dropdown-item  {{ 'active' if pagina_atual == '/usuario/perfil' }}" href="/usuario/perfil">Meu Perfil</a></li>
+                        <li>
+                            <a class="dropdown-item  {{ 'active' if pagina_atual == '/usuario/perfil' }}" href="/usuario/perfil">Meu Perfil</a>
+                        </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

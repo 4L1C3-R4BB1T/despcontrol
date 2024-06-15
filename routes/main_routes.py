@@ -9,6 +9,7 @@ from dtos.novo_usuario_dto import NovoUsuarioDTO
 from ler_html import ler_html
 from models.usuario_model import Usuario
 from repositories.usuario_repo import UsuarioRepo
+from repositories.despesa_repo import DespesaRepo
 from util.auth import conferir_senha, gerar_token, obter_hash_senha, obter_usuario_logado
 from util.cookies import adicionar_cookie_auth, adicionar_mensagem_sucesso
 from util.pydantic import create_validation_errors
