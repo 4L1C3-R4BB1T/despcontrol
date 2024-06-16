@@ -8,6 +8,7 @@ from models.usuario_model import Usuario
 from repositories.categoria_repo import CategoriaRepo
 from repositories.despesa_repo import DespesaRepo
 from util.auth import obter_usuario_logado
+from util.cookies import adicionar_mensagem_sucesso
 
 
 router = APIRouter()
@@ -48,4 +49,6 @@ async def post_cadastro(despesa: NovaDespesaDTO, usuario_logado: Usuario = Depen
     nova_despesa = DespesaRepo.inserir(Despesa(**despesa_data))
     if not nova_despesa or not nova_despesa.id:
         raise HTTPException(status_code=400, detail="Erro ao cadastrar despesa.")
-    return {"redirect": {"url": "/usuario/despesas"}}
+    response = JSONResponse(content={"redirect": {"url": "/usuario/despesas"}})
+    adicionar_mensagem_sucesso(response, "Despesa cadastrada com sucesso.")
+    return response

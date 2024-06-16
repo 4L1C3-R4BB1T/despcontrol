@@ -27,13 +27,13 @@
                 {% endif %}
 
                 {%- if message_success: -%}
-                {%- include "message_success.html" with context -%}
+                {%- include "messages/message_success.html" with context -%}
                 {%- endif -%}
                 {%- if message_warning: -%}
-                {%- include "message_warning.html" with context -%}
+                {%- include "messages/message_warning.html" with context -%}
                 {%- endif -%}
                 {%- if message_danger: -%}
-                {%- include "message_danger.html" with context -%}
+                {%- include "messages/message_danger.html" with context -%}
                 {%- endif -%}
             </div>
             <div class="col-12">

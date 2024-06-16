@@ -63,7 +63,7 @@
                         <label for="descricao">Descrição</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="valor" name="valor" placeholder=" ">
+                        <input type="number" step=".01" class="form-control" id="valor" name="valor" placeholder=" ">
                         <label for="valor">Valor</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -88,6 +88,7 @@
         </div>
     </div>
 </div>
+
 <script src="/static/js/formToJson.js"></script>
 <script src="/static/js/inputMasks.js"></script>
 {% endblock %}

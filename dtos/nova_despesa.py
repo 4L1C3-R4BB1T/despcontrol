@@ -21,7 +21,7 @@ class NovaDespesaDTO(BaseModel):
     def validar_valor(cls, v):
         msg = is_greater_than(float(v), "Valor", 0)
         if msg:
-            raise ValueError(msg.strip())
+            raise ValueError(msg)
         return v
 
     @field_validator("data")
