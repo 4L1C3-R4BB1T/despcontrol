@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block subtitulo %}Editar Despesa{% endblock %}
+{% block conteudo %}
+<div class="col-12 col-lg-6 mx-auto">
+    <h1 class="display-5"><b>Editar Despesa</b></h1>
+    <hr>
+    <form class="row json-form" method="post" action="/usuario/post_edicao_despesa">
+        <div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="descricao" name="descricao" value="{{ despesa.descricao }}">
+                <label for="descricao">Descrição</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" step=".01" class="form-control" id="valor" name="valor" value="{{ despesa.valor }}">
+                <label for="valor">Valor</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="data" name="data" value="{{ despesa.data }}">
+                <label for="data">Data</label>
+            </div>
+            <div class="form-floating mb-3">
+                <select class="form-select" id="id_categoria" name="id_categoria">
+                    <option>Selecione uma categoria...</option>
+                    {% for c in categorias %}
+                    <option value="{{ c.id }}" {{ 'selected' if c.id == despesa.id_categoria }}>{{ c.nome }}</option>
+                    {% endfor %}
+                </select>
+                <label for="id_categoria">Categoria</label>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+                <a href="/usuario/despesas" class="bg-danger text-light text-decoration-none d-flex justify-content-center align-items-center px-4 py-2 fs-5 rounded-3">Voltar</a>
+                <button type="submit" class="btn btn-lg btn-success">Alterar</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/static/js/formToJson.js"></script>
+<script src="/static/js/inputMasks.js"></script>
+{% endblock %}

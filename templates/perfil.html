@@ -4,7 +4,7 @@
 <div class="col-12 col-lg-6 mx-auto">
     <h1 class="display-5"><b>Meu Perfil</b></h1>
     <hr>
-    <form class="row">
+    <form class="row json-form" method="post" action="/usuario/post_edicao_cadastro">
         <div>
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="nome" placeholder=" " value="{{ usuario.nome }}">
@@ -28,4 +28,6 @@
         </div>
     </form>
 </div>
+<script src="/static/js/formToJson.js"></script>
+<script src="/static/js/inputMasks.js"></script>
 {% endblock %}

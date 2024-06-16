@@ -21,7 +21,7 @@
             <div class="d-flex justify-content-between mx-3 mt-3">
                 <span class="bg-info bg-opacity-75 px-2 py-1 rounded-3 fw-semibold">{{ d.nome_categoria }}</span>
                 <div class="d-flex flex-row ms-3 gap-3">
-                    <a href="">
+                    <a href="/usuario/despesas/{{ d.id }}">
                         <i class="bi bi-pencil-fill text-warning fs-4"></i>
                     </a>
                     <a href="">
@@ -47,8 +47,6 @@
     {% endfor %}
     {%- endif -%}
 </div>
-
-<!-- Modal -->
 <div class="modal fade" id="cadastroDespesa" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -88,7 +86,6 @@
         </div>
     </div>
 </div>
-
 <script src="/static/js/formToJson.js"></script>
 <script src="/static/js/inputMasks.js"></script>
 {% endblock %}

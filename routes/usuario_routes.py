@@ -52,3 +52,18 @@ async def post_cadastro(despesa: NovaDespesaDTO, usuario_logado: Usuario = Depen
     response = JSONResponse(content={"redirect": {"url": "/usuario/despesas"}})
     adicionar_mensagem_sucesso(response, "Despesa cadastrada com sucesso.")
     return response
+
+
+@router.get("/usuario/despesas/{id_despesa}")
+def get_root(request: Request, id_despesa: int, usuario_logado: Usuario = Depends(obter_usuario_logado)):
+    despesa = DespesaRepo.obter_um(id_despesa)
+    categorias = CategoriaRepo.obter_todos()
+    return templates.TemplateResponse(
+        "edicao_despesa.html",
+        {
+            "request": request,
+            "usuario": usuario_logado,
+            "despesa": despesa,
+            "categorias": categorias,
+        },
+    )

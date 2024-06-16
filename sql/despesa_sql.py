@@ -35,11 +35,11 @@ SQL_EXCLUIR = """
 """
 
 SQL_OBTER_UM = """
-    SELECT id, descricao, valor, data, id_categoria, id_usuario, categoria.nome AS nome_categoria
+    SELECT despesa.id, despesa.descricao, despesa.valor, despesa.data, despesa.id_categoria, despesa.id_usuario, categoria.nome AS nome_categoria
     FROM despesa 
-    INNER JOIN categoria ON id_categoria = categoria.id
-    INNER JOIN usuario ON id_usuario = usuario.id
-    WHERE id=?
+    INNER JOIN categoria ON despesa.id_categoria = categoria.id
+    INNER JOIN usuario ON despesa.id_usuario = usuario.id
+    WHERE despesa.id=?
 """
 
 SQL_OBTER_QUANTIDADE = """
