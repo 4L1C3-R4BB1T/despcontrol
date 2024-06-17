@@ -17,3 +17,18 @@
     border-color: #babbbc;
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
+
+.pagination a,
+.pagination a:focus,
+.pagination a:hover {
+    color: #000;
+}
+
+.pagination .active {
+    border-color: #000;
+    background-color: #000;
+}
+
+.pagination .active:hover {
+    color: #fff;
+}

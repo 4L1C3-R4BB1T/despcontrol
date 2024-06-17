@@ -103,11 +103,23 @@ class DespesaRepo:
             return None
 
     @classmethod
-    def obter_todos_por_usuario(cls, usuario_id: int) -> Optional[Despesa]:
+    def obter_quantidade_por_usuario(cls, usuario_id: int) -> Optional[int]:
         try:
             with obter_conexao() as conexao:
                 cursor = conexao.cursor()
-                tuplas = cursor.execute(SQL_OBTER_TODOS_POR_USUARIO, (usuario_id,)).fetchall()
+                tupla = cursor.execute(SQL_OBTER_QUANTIDADE_POR_USUARIO, (usuario_id,)).fetchone()
+                return int(tupla[0])
+        except sqlite3.Error as ex:
+            print(ex)
+            return None
+
+    @classmethod
+    def obter_todos_por_usuario(cls, pagina: int, tamanho_pagina: int, usuario_id: int) -> Optional[Despesa]:
+        offset = (pagina - 1) * tamanho_pagina
+        try:
+            with obter_conexao() as conexao:
+                cursor = conexao.cursor()
+                tuplas = cursor.execute(SQL_OBTER_TODOS_POR_USUARIO, (usuario_id, tamanho_pagina, offset)).fetchall()
                 despesas = [Despesa(*t) for t in tuplas]
                 return despesas
         except sqlite3.Error as ex:

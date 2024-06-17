@@ -46,6 +46,11 @@ SQL_OBTER_QUANTIDADE = """
     SELECT COUNT(*) FROM despesa
 """
 
+SQL_OBTER_QUANTIDADE_POR_USUARIO = """
+    SELECT COUNT(*) FROM despesa
+    WHERE id_usuario=?
+"""
+
 SQL_OBTER_PERIODO = """
     SELECT id, descricao, valor, data, id_categoria, id_usuario, categoria.nome AS nome_categoria
     FROM despesa 
@@ -66,4 +71,5 @@ SQL_OBTER_TODOS_POR_USUARIO = """
     INNER JOIN categoria ON despesa.id_categoria = categoria.id
     WHERE despesa.id_usuario = ?
     ORDER BY despesa.id DESC
+    LIMIT ? OFFSET ?
 """

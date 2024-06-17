@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-end">
+    <nav class="me-3">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link {{ 'disabled' if pagina_atual == 1 else '' }}"
+                    href="/usuario/despesas?p={{ pagina_atual - 1 }}&tp={{ tamanho_pagina }}">
+                    <span>&laquo;</span>
+                </a>
+            </li>
+            {% for i in range(quantidade_paginas) %}
+            <li class="page-item">
+                <a class="page-link {{ 'active' if (i + 1) == pagina_atual else '' }}"
+                    href="/usuario/despesas?p={{ i + 1 }}&tp={{ tamanho_pagina }}">{{ i+1 }}</a>
+            </li>
+            {% endfor %}
+            <li class="page-item">
+                <a class="page-link {{ 'disabled' if pagina_atual == quantidade_paginas else '' }}"
+                    href="/usuario/despesas?p={{ pagina_atual + 1 }}&tp={{ tamanho_pagina }}">
+                    <span>&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

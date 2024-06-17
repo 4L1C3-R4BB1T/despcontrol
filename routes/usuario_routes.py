@@ -1,3 +1,4 @@
+import math
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
@@ -18,9 +19,12 @@ templates = Jinja2Templates(directory = "templates")
 
 
 @router.get("/usuario/despesas")
-def get_despesas(request: Request, usuario_logado: Usuario = Depends(obter_usuario_logado)):
-    despesas = DespesaRepo.obter_todos_por_usuario(usuario_logado.id)
+def get_despesas(request: Request, p: int = 1, tp: int = 8, usuario_logado: Usuario = Depends(obter_usuario_logado)):
+    despesas = DespesaRepo.obter_todos_por_usuario(p, tp, usuario_logado.id)
     categorias = CategoriaRepo.obter_todos()
+    qtde_despesas = DespesaRepo.obter_quantidade_por_usuario(usuario_logado.id)
+    qtde_paginas = math.ceil(qtde_despesas / float(tp))
+    print("despesas", qtde_despesas)
     return templates.TemplateResponse(
         "despesas.html",
         {
@@ -28,6 +32,9 @@ def get_despesas(request: Request, usuario_logado: Usuario = Depends(obter_usuar
             "usuario": usuario_logado,
             "despesas": despesas,
             "categorias": categorias,
+            "quantidade_paginas": qtde_paginas,
+            "tamanho_pagina": tp,
+            "pagina_atual": p,
         },
     )
 
