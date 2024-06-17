@@ -60,7 +60,6 @@ class DespesaRepo:
                         despesa.valor,
                         despesa.data,
                         despesa.id_categoria,
-                        despesa.id_usuario,
                         despesa.id,
                     ),
                 )

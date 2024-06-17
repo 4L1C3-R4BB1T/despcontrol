@@ -6,6 +6,7 @@
     <hr>
     <form class="row json-form" method="post" action="/usuario/post_edicao_despesa">
         <div>
+            <input type="hidden" name="id" value="{{ despesa.id }}">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="descricao" name="descricao" value="{{ despesa.descricao }}">
                 <label for="descricao">Descrição</label>

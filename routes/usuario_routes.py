@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
 
+from dtos.edicao_despesa import EdicaoDespesaDTO
 from dtos.nova_despesa import NovaDespesaDTO
 from models.despesa_model import Despesa
 from models.usuario_model import Usuario
@@ -67,3 +68,14 @@ def get_root(request: Request, id_despesa: int, usuario_logado: Usuario = Depend
             "categorias": categorias,
         },
     )
+
+
+@router.post("/usuario/post_edicao_despesa", response_class=JSONResponse)
+async def post_cadastro(despesa: EdicaoDespesaDTO):
+    despesa_data = despesa.model_dump()
+    despesa_atualizada = DespesaRepo.alterar(Despesa(**despesa_data))
+    if not despesa_atualizada:
+        raise HTTPException(status_code=400, detail="Erro ao editar despesa.")
+    response = JSONResponse(content={"redirect": {"url": "/usuario/despesas"}})
+    adicionar_mensagem_sucesso(response, "Despesa atualizada com sucesso.")
+    return response
