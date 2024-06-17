@@ -18,7 +18,7 @@ templates = Jinja2Templates(directory = "templates")
 
 
 @router.get("/usuario/despesas")
-def get_root(request: Request, usuario_logado: Usuario = Depends(obter_usuario_logado)):
+def get_despesas(request: Request, usuario_logado: Usuario = Depends(obter_usuario_logado)):
     despesas = DespesaRepo.obter_todos_por_usuario(usuario_logado.id)
     categorias = CategoriaRepo.obter_todos()
     return templates.TemplateResponse(
@@ -33,7 +33,7 @@ def get_root(request: Request, usuario_logado: Usuario = Depends(obter_usuario_l
 
 
 @router.get("/usuario/perfil")
-def get_root(request: Request, usuario_logado: Usuario = Depends(obter_usuario_logado)):
+def get_usuario_perfil(request: Request, usuario_logado: Usuario = Depends(obter_usuario_logado)):
     return templates.TemplateResponse(
         "perfil.html",
         {
@@ -44,7 +44,7 @@ def get_root(request: Request, usuario_logado: Usuario = Depends(obter_usuario_l
 
 
 @router.post("/usuario/post_cadastro_despesa", response_class=JSONResponse)
-async def post_cadastro(despesa: NovaDespesaDTO, usuario_logado: Usuario = Depends(obter_usuario_logado)):
+async def post_cadastro_despesa(despesa: NovaDespesaDTO, usuario_logado: Usuario = Depends(obter_usuario_logado)):
     despesa_data = despesa.model_dump()
     despesa_data["id_usuario"] = usuario_logado.id
     nova_despesa = DespesaRepo.inserir(Despesa(**despesa_data))
@@ -55,8 +55,8 @@ async def post_cadastro(despesa: NovaDespesaDTO, usuario_logado: Usuario = Depen
     return response
 
 
-@router.get("/usuario/despesas/{id_despesa}")
-def get_root(request: Request, id_despesa: int, usuario_logado: Usuario = Depends(obter_usuario_logado)):
+@router.get("/usuario/despesas/edicao/{id_despesa}")
+def get_edicao_despesa(request: Request, id_despesa: int, usuario_logado: Usuario = Depends(obter_usuario_logado)):
     despesa = DespesaRepo.obter_um(id_despesa)
     categorias = CategoriaRepo.obter_todos()
     return templates.TemplateResponse(
@@ -71,7 +71,7 @@ def get_root(request: Request, id_despesa: int, usuario_logado: Usuario = Depend
 
 
 @router.post("/usuario/post_edicao_despesa", response_class=JSONResponse)
-async def post_cadastro(despesa: EdicaoDespesaDTO):
+async def post_edicao_despesa(despesa: EdicaoDespesaDTO):
     despesa_data = despesa.model_dump()
     despesa_atualizada = DespesaRepo.alterar(Despesa(**despesa_data))
     if not despesa_atualizada:
