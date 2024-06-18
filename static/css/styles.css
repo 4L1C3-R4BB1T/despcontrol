@@ -2,7 +2,7 @@
     color: #000;
     background-color: #f8f9fa;
     border-color: red;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .login:hover {
@@ -31,4 +31,13 @@
 
 .pagination .active:hover {
     color: #fff;
+}
+
+.feature {
+    color: #fff;
+    background-color: #0079a1;
+}
+
+.testimonials {
+    background-color: #dfdfdf;
 }

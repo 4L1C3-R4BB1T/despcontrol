@@ -3,10 +3,82 @@
 {% block conteudo %}
 
 {% if not usuario or not usuario.nome -%}
-<h1 class="display-5">nao logado</h1>
+<section class="bg-dark text-white text-center py-5 mt-5">
+    <h1>Bem-vindo ao DespControl</h1>
+    <p>Gerencie suas despesas de maneira fácil e segura</p>
+    <div class="d-flex gap-3 flex-column flex-md-row px-5 justify-content-center mt-4">
+        <a href="/cadastro" class="bg-light text-dark p-3 text-decoration-none rounded-3 fs-5">Cadastre-se Gratuitamente</a>
+        <a href="/entrar" class="bg-light text-dark p-3 text-decoration-none rounded-3 fs-5">Faça Login</a>
+    </div>
+</section>
+<section class="text-center my-5">
+    <h2>Funcionalidades Principais</h2>
+    <div class="d-flex flex-column flex-md-row gap-3 justify-content-center mt-4">
+        <div class="feature p-4 rounded-3 shadow-sm">
+            <h3 class="lead fs-3 fw-bold">Gerenciamento de Despesas</h3>
+            <p>Controle suas despesas diárias de forma simples.</p>
+        </div>
+        <div class="feature p-4 rounded-3 shadow">
+            <h3 class="lead fs-3 fw-bold">Categorias Personalizadas</h3>
+            <p>Organize suas despesas em categorias personalizadas.</p>
+        </div>
+        <div class="feature p-4 rounded-3 shadow">
+            <h3 class="lead fs-3 fw-bold">Segurança</h3>
+            <p>Seus dados protegidos com criptografia de ponta a ponta.</p>
+        </div>
+    </div>
+</section>
+<section class="testimonials text-center p-5">
+    <h2>O que nossos usuários dizem</h2>
+    <div class="d-flex flex-column flex-md-row gap-4 justify-content-center mt-4">
+        <blockquote class="p-4 rounded-3 shadow">
+            <p>"DespControl me ajudou a economizar mais."</p>
+            <cite>João M.</cite>
+        </blockquote>
+        <blockquote class="p-4 rounded-3 shadow">
+            <p>"A plataforma é intuitiva e fácil de usar."</p>
+            <cite>Maria D.</cite>
+        </blockquote>
+    </div>
+</section>
+<section class="text-center p-5">
+    <h2>Como Funciona</h2>
+    <div class="d-flex gap-4 justify-content-center mt-4">
+        <span class="fs-5">
+            <strong>Cadastro:</strong> Crie sua conta gratuitamente.
+        </span>
+        <span class="fs-5">
+            <strong>Adicione Despesas:</strong> Insira suas despesas diárias.
+        </span>
+    </div>
+</section>
+<section class="feature text-center p-5 mb-5">
+    <h2 class="mb-5">Comece a controlar suas finanças hoje mesmo!</h2>
+    <a href="/cadastro" class="bg-light text-dark p-3 text-decoration-none rounded-3 fs-5">Cadastre-se Gratuitamente</a>
+</section>
 {%- else: -%}
-<h1 class="display-5">logado</h1>
+<section class="text-center my-5">
+    <h2>Funcionalidades Principais</h2>
+    <div class="d-flex flex-column flex-md-row gap-3 justify-content-center mt-4">
+        <div class="feature p-4 rounded-3 shadow-sm">
+            <h3 class="lead fs-3 fw-bold">Gerenciamento de Despesas</h3>
+            <p>Controle suas despesas diárias de forma simples.</p>
+        </div>
+        <div class="feature p-4 rounded-3 shadow">
+            <h3 class="lead fs-3 fw-bold">Categorias Personalizadas</h3>
+            <p>Organize suas despesas em categorias personalizadas.</p>
+        </div>
+        <div class="feature p-4 rounded-3 shadow">
+            <h3 class="lead fs-3 fw-bold">Segurança</h3>
+            <p>Seus dados protegidos com criptografia de ponta a ponta.</p>
+        </div>
+    </div>
+</section>
+<section class="d-flex justify-content-center mb-5">
+    <a href="/usuario/despesas" class="bg-danger text-white text-decoration-none p-4 rounded-3 fs-4">
+        Adicione suas despesas agora!
+    </a>
+</section>
 {%- endif -%}
-colocar algo aqui
 
 {% endblock %}
