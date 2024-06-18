@@ -12,7 +12,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    {% include "header.html" %}
+    {% include "/partials/header.html" %}
     <main class="container mt-3">
         <div class="row">
             <div class="col-12">
@@ -27,13 +27,13 @@
                 {% endif %}
 
                 {%- if message_success: -%}
-                {%- include "messages/message_success.html" with context -%}
+                {%- include "/messages/message_success.html" with context -%}
                 {%- endif -%}
                 {%- if message_warning: -%}
-                {%- include "messages/message_warning.html" with context -%}
+                {%- include "/messages/message_warning.html" with context -%}
                 {%- endif -%}
                 {%- if message_danger: -%}
-                {%- include "messages/message_danger.html" with context -%}
+                {%- include "/messages/message_danger.html" with context -%}
                 {%- endif -%}
             </div>
             <div class="col-12">
@@ -42,7 +42,7 @@
         </div>
         {% block conteudo %}{% endblock %}
     </main>
-    {% include "footer.html" %}
+    {% include "/partials/footer.html" %}
     <script src="/static/lib/bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 
