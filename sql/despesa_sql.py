@@ -73,3 +73,17 @@ SQL_OBTER_TODOS_POR_USUARIO = """
     ORDER BY despesa.id DESC
     LIMIT ? OFFSET ?
 """
+
+SQL_OBTER_BUSCA = """
+    SELECT despesa.id, despesa.descricao, despesa.valor, despesa.data, despesa.id_categoria, despesa.id_usuario, categoria.nome AS nome_categoria
+    FROM despesa
+    INNER JOIN categoria ON despesa.id_categoria = categoria.id
+    WHERE despesa.id_usuario = ? AND despesa.descricao LIKE ?
+    ORDER BY despesa.id DESC
+    LIMIT ? OFFSET ?
+"""
+
+SQL_OBTER_QUANTIDADE_BUSCA = """
+    SELECT COUNT(*) FROM despesa
+    WHERE id_usuario=? AND descricao LIKE ?
+"""

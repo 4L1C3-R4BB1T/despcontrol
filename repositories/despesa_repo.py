@@ -127,6 +127,32 @@ class DespesaRepo:
             return None
 
     @classmethod
+    def obter_busca(cls, termo: str, pagina: int, tamanho_pagina: int, usuario_id: int) -> List[Despesa]:
+        termo = "%"+termo+"%"
+        offset = (pagina - 1) * tamanho_pagina
+        try:
+            with obter_conexao() as conexao:
+                cursor = conexao.cursor()
+                tuplas = cursor.execute(SQL_OBTER_BUSCA, (usuario_id, termo, tamanho_pagina, offset)).fetchall()
+                despesas = [Despesa(*t) for t in tuplas]
+                return despesas
+        except sqlite3.Error as ex:
+            print(ex)
+            return None
+
+    @classmethod
+    def obter_quantidade_busca(cls, termo: str, usuario_id: int) -> Optional[int]:
+        termo = "%"+termo+"%"
+        try:
+            with obter_conexao() as conexao:
+                cursor = conexao.cursor()
+                tupla = cursor.execute(SQL_OBTER_QUANTIDADE_BUSCA, (usuario_id, termo)).fetchone()
+                return int(tupla[0])
+        except sqlite3.Error as ex:
+            print(ex)
+            return None
+
+    @classmethod
     def inserir_despesas_json(cls, arquivo_json: str):
         if DespesaRepo.obter_quantidade() == 0:
             with open(arquivo_json, "r", encoding="utf-8") as arquivo:

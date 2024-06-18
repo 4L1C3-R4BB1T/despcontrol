@@ -24,7 +24,6 @@ def get_despesas(request: Request, p: int = 1, tp: int = 8, usuario_logado: Usua
     categorias = CategoriaRepo.obter_todos()
     qtde_despesas = DespesaRepo.obter_quantidade_por_usuario(usuario_logado.id)
     qtde_paginas = math.ceil(qtde_despesas / float(tp))
-    print("despesas", qtde_despesas)
     return templates.TemplateResponse(
         "despesas.html",
         {
@@ -86,3 +85,24 @@ async def post_edicao_despesa(despesa: EdicaoDespesaDTO):
     response = JSONResponse(content={"redirect": {"url": "/usuario/despesas"}})
     adicionar_mensagem_sucesso(response, "Despesa atualizada com sucesso.")
     return response
+
+
+@router.get("/usuario/buscar")
+def get_root(request: Request, q: str, p: int = 1, tp: int = 6, usuario_logado: Usuario = Depends(obter_usuario_logado)):
+    despesas = DespesaRepo.obter_busca(q, p, tp, usuario_logado.id)
+    categorias = CategoriaRepo.obter_todos()
+    qtde_despesas = DespesaRepo.obter_quantidade_busca(q, usuario_logado.id)
+    qtde_paginas = math.ceil(qtde_despesas / float(tp))
+    return templates.TemplateResponse(
+        "despesas.html",
+        {
+            "request": request,
+            "usuario": usuario_logado,
+            "despesas": despesas,
+            "categorias": categorias,
+            "quantidade_paginas": qtde_paginas,
+            "tamanho_pagina": tp,
+            "pagina_atual": p,
+            "termo_busca": q,
+        },
+    )
