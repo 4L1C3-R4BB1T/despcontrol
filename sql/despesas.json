@@ -68,5 +68,12 @@
         "data": "2024-06-18",
         "id_categoria": 4,
         "id_usuario": 1
+    },
+    {
+        "descricao": "Remédios",
+        "valor": 78.50,
+        "data": "2024-06-18",
+        "id_categoria": 5,
+        "id_usuario": 1
     }
 ]

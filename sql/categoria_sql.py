@@ -25,6 +25,13 @@ SQL_OBTER_TODOS_POR_USUARIO = """
     ORDER BY nome
 """
 
+SQL_OBTER_TODOS_POR_USUARIO_PAGINADO = """
+    SELECT id, nome, cor
+    FROM categoria
+    WHERE id_usuario=?
+    ORDER BY nome
+    LIMIT ? OFFSET ?
+"""
 
 SQL_ALTERAR = """
     UPDATE categoria
@@ -45,6 +52,11 @@ SQL_OBTER_UM = """
 
 SQL_OBTER_QUANTIDADE = """
     SELECT COUNT(*) FROM categoria
+"""
+
+SQL_OBTER_QUANTIDADE_POR_USUARIO = """
+    SELECT COUNT(*) FROM categoria
+    WHERE id_usuario=?
 """
 
 SQL_OBTER_BUSCA = """

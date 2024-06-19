@@ -6,7 +6,9 @@ from fastapi.templating import Jinja2Templates
 from dtos.alterar_despesa import AlterarDespesaDTO
 from dtos.alterar_senha_dto import AlterarSenhaDTO
 from dtos.alterar_usuario_dto import AlterarUsuarioDTO
+from dtos.nova_categoria import NovaDCategoriaDTO
 from dtos.nova_despesa import NovaDespesaDTO
+from models.categoria_model import Categoria
 from models.despesa_model import Despesa
 from models.usuario_model import Usuario
 from repositories.categoria_repo import CategoriaRepo
@@ -142,6 +144,40 @@ def get_buscar(request: Request, q: str, p: int = 1, tp: int = 8):
             "termo_busca": q,
         },
     )
+
+
+@router.get("/categorias")
+def get_despesas(request: Request, p: int = 1, tp: int = 12):
+    checar_autorizacao(request)
+    categorias = CategoriaRepo.obter_todos_por_usuario_paginado(p, tp, request.state.usuario.id)
+    qtde_categorias = CategoriaRepo.obter_quantidade_por_usuario(
+        request.state.usuario.id
+    )
+    qtde_paginas = math.ceil(qtde_categorias / float(tp))
+    print(qtde_categorias)
+    return templates.TemplateResponse(
+        "categorias.html",
+        {
+            "request": request,
+            "categorias": categorias,
+            "quantidade_paginas": qtde_paginas,
+            "tamanho_pagina": tp,
+            "pagina_atual": p,
+        },
+    )
+
+
+@router.post("/post_cadastro_categoria", response_class=JSONResponse)
+async def post_cadastro_despesa(request: Request, despesa: NovaDCategoriaDTO):
+    checar_autorizacao(request)
+    categoria_data = despesa.model_dump()
+    categoria_data["id_usuario"] = request.state.usuario.id
+    nova_categoria = CategoriaRepo.inserir(Categoria(**categoria_data))
+    if not nova_categoria or not nova_categoria.id:
+        raise HTTPException(status_code=400, detail="Erro ao cadastrar categoria.")
+    response = JSONResponse(content={"redirect": {"url": "/usuario/categorias"}})
+    adicionar_mensagem_sucesso(response, "Categoria cadastrada com sucesso.")
+    return response
 
 
 @router.get("/sair", response_class=RedirectResponse)

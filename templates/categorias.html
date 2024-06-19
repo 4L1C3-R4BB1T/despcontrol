@@ -1,0 +1,57 @@
+{% extends "/partials/base.html" %}
+{% block subtitulo %}Categorias{% endblock %}
+{% block conteudo %}
+<div class="d-flex justify-content-between align-items-center">
+    <h1 class="display-5">Categorias</h1>
+    <button type="button" class="btn btn-success rounded-5" data-bs-toggle="modal" data-bs-target="#cadastroCategoria">
+        <i class="bi bi-plus-circle-fill fs-4 text-light"></i>
+    </button>
+</div>
+<hr>
+{%- set url = 'categorias' -%}
+{% include "paging.html" %}
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5 pt-3 mb-4">
+    {% if not categorias %}
+    <div class="col-lg-6 mx-auto text-center">
+        <p class="lead mt-5">Não há categorias cadastradas!</p>
+        <i class="bi bi-database-x fs-1"></i>
+    </div>
+    {%- else: -%}
+    {% for c in categorias %}
+    <div class="col">
+        <div class="card h-100 shadow border-0">
+            <span class="p-3 small rounded-2 fw-semibold text-light fs-4" style="background-color: {{ c.cor }}; text-shadow: 1.5px 1.5px #000;">{{ c.nome }}</span>
+        </div>
+    </div>
+    {% endfor %}
+    {%- endif -%}
+</div>
+<div class="modal fade" id="cadastroCategoria" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cadastroCategoriaLabel">Cadastrar Categoria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="row json-form p-3" method="post" action="/usuario/post_cadastro_categoria">
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="nome" name="nome" placeholder=" ">
+                        <label for="nome">Nome</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="color" class="form-control" id="cor" name="cor" placeholder=" ">
+                        <label for="cor">Cor</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sair</button>
+                    <button type="submit" class="btn btn-success">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/static/js/formToJson.js"></script>
+<script src="/static/js/inputMasks.js"></script>
+{% endblock %}

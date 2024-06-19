@@ -59,6 +59,19 @@ class CategoriaRepo:
             return None
 
     @classmethod
+    def obter_todos_por_usuario_paginado(cls, pagina: int, tamanho_pagina: int, usuario_id: int) -> Optional[Categoria]:
+        offset = (pagina - 1) * tamanho_pagina
+        try:
+            with obter_conexao() as conexao:
+                cursor = conexao.cursor()
+                tuplas = cursor.execute(SQL_OBTER_TODOS_POR_USUARIO_PAGINADO, (usuario_id, tamanho_pagina, offset)).fetchall()
+                categorias = [Categoria(*t) for t in tuplas]
+                return categorias
+        except sqlite3.Error as ex:
+            print(ex)
+            return None
+
+    @classmethod
     def alterar(cls, categoria: Categoria) -> bool:
         try:
             with obter_conexao() as conexao:
@@ -101,6 +114,17 @@ class CategoriaRepo:
             with obter_conexao() as conexao:
                 cursor = conexao.cursor()
                 tupla = cursor.execute(SQL_OBTER_QUANTIDADE).fetchone()
+                return int(tupla[0])
+        except sqlite3.Error as ex:
+            print(ex)
+            return None
+
+    @classmethod
+    def obter_quantidade_por_usuario(cls, usuario_id: int) -> Optional[int]:
+        try:
+            with obter_conexao() as conexao:
+                cursor = conexao.cursor()
+                tupla = cursor.execute(SQL_OBTER_QUANTIDADE_POR_USUARIO, (usuario_id,)).fetchone()
                 return int(tupla[0])
         except sqlite3.Error as ex:
             print(ex)
