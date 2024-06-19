@@ -21,14 +21,13 @@
     <div class="col">
         <div class="card h-100 shadow">
             <div class="d-flex justify-content-between align-items-center mx-3 mt-3">
-                <span class="px-2 py-1 small rounded-2 fw-semibold text-light" style="background-color: {{ d.cor_categoria }}; text-shadow: 1.5px 1.5px #000;">{{ d.nome_categoria
-                    }}</span>
-                <div class="d-flex flex-row ms-3 gap-3">
+                <span class="px-2 py-1 small rounded-2 fw-semibold text-light" style="background-color: {{ d.cor_categoria }}; text-shadow: 1.5px 1.5px #000;">{{ d.nome_categoria }}</span>
+                <div class="d-flex gap-3">
                     <a href="/usuario/alterar_despesa/{{ d.id }}">
-                        <i class="bi bi-pencil-fill text-warning fs-4"></i>
+                        <i class="bi bi-pencil-fill text-warning fs-4 p-1 rounded-3 shadow"></i>
                     </a>
                     <a href="">
-                        <i class="bi bi-trash3-fill text-danger fs-4"></i>
+                        <i class="bi bi-trash3-fill text-danger fs-4 p-1 rounded-3 shadow"></i>
                     </a>
                 </div>
             </div>
@@ -39,6 +38,7 @@
                 <div>
                     <p class="card-text">
                         {{ d.data }}
+
                     </p>
                     <p class="lead text-danger fw-bold mb-0">
                         R$ {{ "{:,.2f}".format(d.valor) }}

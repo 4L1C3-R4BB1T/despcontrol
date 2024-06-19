@@ -78,7 +78,11 @@ class CategoriaRepo:
                 cursor = conexao.cursor()
                 cursor.execute(
                     SQL_ALTERAR,
-                    (categoria.nome, categoria.cor),
+                    (
+                        categoria.nome,
+                        categoria.cor,
+                        categoria.id,
+                    ),
                 )
                 return cursor.rowcount > 0
         except sqlite3.Error as ex:

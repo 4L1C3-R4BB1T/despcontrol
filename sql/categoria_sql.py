@@ -35,7 +35,7 @@ SQL_OBTER_TODOS_POR_USUARIO_PAGINADO = """
 
 SQL_ALTERAR = """
     UPDATE categoria
-    SET nome=?
+    SET nome=?, cor=?
     WHERE id=?
 """
 

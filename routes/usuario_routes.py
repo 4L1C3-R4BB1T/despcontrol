@@ -3,11 +3,12 @@ from fastapi import APIRouter, HTTPException, Request, status
 from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
-from dtos.alterar_despesa import AlterarDespesaDTO
+from dtos.alterar_categoria_dto import AlterarCategoriaDTO
+from dtos.alterar_despesa_dto import AlterarDespesaDTO
 from dtos.alterar_senha_dto import AlterarSenhaDTO
 from dtos.alterar_usuario_dto import AlterarUsuarioDTO
 from dtos.nova_categoria import NovaDCategoriaDTO
-from dtos.nova_despesa import NovaDespesaDTO
+from dtos.nova_despesa_dto import NovaDespesaDTO
 from models.categoria_model import Categoria
 from models.despesa_model import Despesa
 from models.usuario_model import Usuario
@@ -168,15 +169,40 @@ def get_despesas(request: Request, p: int = 1, tp: int = 12):
 
 
 @router.post("/post_cadastro_categoria", response_class=JSONResponse)
-async def post_cadastro_despesa(request: Request, despesa: NovaDCategoriaDTO):
+async def post_cadastro_despesa(request: Request, categoria: NovaDCategoriaDTO):
     checar_autorizacao(request)
-    categoria_data = despesa.model_dump()
+    categoria_data = categoria.model_dump()
     categoria_data["id_usuario"] = request.state.usuario.id
     nova_categoria = CategoriaRepo.inserir(Categoria(**categoria_data))
     if not nova_categoria or not nova_categoria.id:
         raise HTTPException(status_code=400, detail="Erro ao cadastrar categoria.")
     response = JSONResponse(content={"redirect": {"url": "/usuario/categorias"}})
     adicionar_mensagem_sucesso(response, "Categoria cadastrada com sucesso.")
+    return response
+
+
+@router.get("/alterar_categoria/{id_categoria}")
+def get_alterar_categoria(request: Request, id_categoria: int):
+    checar_autorizacao(request)
+    categoria = CategoriaRepo.obter_um(id_categoria)
+    return templates.TemplateResponse(
+        "alterar_categoria.html",
+        {
+            "request": request,
+            "categoria": categoria,
+        },
+    )
+
+
+@router.post("/post_alterar_categoria", response_class=JSONResponse)
+async def post_alterar_categoria(request: Request, categoria: AlterarCategoriaDTO):
+    checar_autorizacao(request)
+    categoria_data = categoria.model_dump()
+    categoria_atualizada = CategoriaRepo.alterar(Categoria(**categoria_data))
+    if not categoria_atualizada:
+        raise HTTPException(status_code=400, detail="Erro ao editar categoria.")
+    response = JSONResponse(content={"redirect": {"url": "/usuario/categorias"}})
+    adicionar_mensagem_sucesso(response, "Categoria atualizada com sucesso.")
     return response
 
 
