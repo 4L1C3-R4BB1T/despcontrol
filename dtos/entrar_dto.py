@@ -6,6 +6,7 @@ from util.validators import *
 class EntrarDTO(BaseModel):
     email: str
     senha: str
+    return_url: str
 
     @field_validator("email")
     def validar_email(cls, v):

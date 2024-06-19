@@ -69,3 +69,9 @@ SQL_OBTER_QUANTIDADE_BUSCA = """
     SELECT COUNT(*) FROM usuario
     WHERE nome LIKE ?
 """
+
+SQL_ALTERAR_SENHA = """
+    UPDATE usuario
+    SET senha=?
+    WHERE id=?
+"""

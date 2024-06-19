@@ -4,11 +4,12 @@ import bcrypt
 from fastapi import HTTPException, Request, status
 from models.usuario_model import Usuario
 from repositories.usuario_repo import UsuarioRepo
+from util.cookies import NOME_COOKIE_AUTH, adicionar_cookie_auth
 
 
 async def obter_usuario_logado(request: Request) -> Optional[Usuario]:
     try:
-        token = request.cookies["auth_token"]
+        token = request.cookies[NOME_COOKIE_AUTH]
         if token.strip() == "":
             return None
         usuario = UsuarioRepo.obter_por_token(token)
@@ -17,20 +18,15 @@ async def obter_usuario_logado(request: Request) -> Optional[Usuario]:
         return None
 
 
-async def atualizar_cookie_autenticacao(request: Request, call_next):
+async def middleware_autenticacao(request: Request, call_next):
+    usuario = await obter_usuario_logado(request)
+    request.state.usuario = usuario
     response = await call_next(request)
     if response.status_code == status.HTTP_303_SEE_OTHER:
         return response
-    usuario = await obter_usuario_logado(request)
     if usuario:
-        token = request.cookies["auth_token"]
-        response.set_cookie(
-            key="auth_token",
-            value=token,
-            max_age=1800,
-            httponly=True,
-            samesite="lax",
-        )
+        token = request.cookies[NOME_COOKIE_AUTH]
+        adicionar_cookie_auth(response, token)
     return response
 
 
@@ -56,6 +52,6 @@ def gerar_token(length: int = 32) -> str:
         return ""
 
 
-def checar_autorizacao(usuario_logado: Usuario):
-    if not usuario_logado:
+def checar_autorizacao(request: Request):
+    if not request.state.usuario:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

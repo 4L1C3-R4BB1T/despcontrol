@@ -10,13 +10,14 @@ from ler_html import ler_html
 from models.usuario_model import Usuario
 from repositories.usuario_repo import UsuarioRepo
 from repositories.despesa_repo import DespesaRepo
-from util.auth import conferir_senha, gerar_token, obter_hash_senha, obter_usuario_logado
+from util.auth import conferir_senha, gerar_token, obter_hash_senha
+
 from util.cookies import adicionar_cookie_auth, adicionar_mensagem_sucesso
 from util.pydantic import create_validation_errors
 
 router = APIRouter()
 
-templates = Jinja2Templates(directory = "templates")
+templates = Jinja2Templates(directory="templates")
 
 
 @router.get("/html/{arquivo}")
@@ -26,53 +27,19 @@ def get_html(arquivo: str):
 
 
 @router.get("/")
-def get_root(request: Request, usuario_logado: Usuario = Depends(obter_usuario_logado)):
-    return templates.TemplateResponse(
-        "index.html", 
-        {
-            "request": request, 
-            "usuario": usuario_logado,
-        }
-    )
+def get_root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 @router.get("/cadastro")
-def get_cadastro(request: Request, usuario_logado: Usuario = Depends(obter_usuario_logado)):
-    return templates.TemplateResponse(
-        "cadastro.html",
-        {
-            "request": request,
-            "usuario": usuario_logado
-        }
-    )
-
-
-@router.get("/entrar")
-def get_entrar(request: Request, usuario_logado: Usuario = Depends(obter_usuario_logado)):
-    return templates.TemplateResponse(
-        "entrar.html", 
-        {
-            "request": request,
-            "usuario": usuario_logado
-        }
-    )
-
-
-@router.get("/cadastro")
-def get_cadastro(request: Request, usuario_logado: Usuario = Depends(obter_usuario_logado)):
-    return templates.TemplateResponse(
-        "cadastro.html",
-        {
-            "request": request,
-            "usuario": usuario_logado
-        }
-    )
+def get_cadastro(request: Request):
+    return templates.TemplateResponse("cadastro.html", {"request": request})
 
 
 @router.post("/post_cadastro", response_class=JSONResponse)
-async def post_cadastro(usuario: NovoUsuarioDTO):
+async def post_cadastro(usuario_dto: NovoUsuarioDTO):
     # Remover campo confirmacao_senha antes de inserir no banco de dados
-    usuario_data = usuario.model_dump(exclude={"confirmacao_senha"})
+    usuario_data = usuario_dto.model_dump(exclude={"confirmacao_senha"})
     usuario_data["senha"] = obter_hash_senha(usuario_data["senha"])
     novo_usuario = UsuarioRepo.inserir(Usuario(**usuario_data))
     if not novo_usuario or not novo_usuario.id:
@@ -81,18 +48,19 @@ async def post_cadastro(usuario: NovoUsuarioDTO):
 
 
 @router.get("/cadastro_realizado")
-def get_cadastro_realizado(request: Request, usuario_logado: Usuario = Depends(obter_usuario_logado)):
+def get_cadastro_realizado(request: Request):
+    return templates.TemplateResponse("cadastro_confirmado.html", {"request": request})
+
+
+@router.get("/entrar")
+async def get_entrar(request: Request, return_url: str = Query("/")):
     return templates.TemplateResponse(
-        "cadastro_confirmado.html",
-        {
-            "request": request,
-            "usuario": usuario_logado
-        }
+        "entrar.html", {"request": request, "return_url": return_url}
     )
 
 
 @router.post("/post_entrar", response_class=JSONResponse)
-async def post_entrar(entrar_dto: EntrarDTO, return_url: str = Query("/")):
+async def post_entrar(entrar_dto: EntrarDTO):
     usuario_entrou = UsuarioRepo.obter_por_email(entrar_dto.email)
     if (
         (not usuario_entrou)
@@ -112,14 +80,10 @@ async def post_entrar(entrar_dto: EntrarDTO, return_url: str = Query("/")):
         raise DatabaseError(
             "Não foi possível alterar o token do usuário no banco de dados."
         )
-    print(return_url)
-    response = JSONResponse(content={"redirect": {"url": return_url}})
-    adicionar_mensagem_sucesso(response, "Entrada efetuada com sucesso.")
+    response = JSONResponse(content={"redirect": {"url": entrar_dto.return_url}})
+    adicionar_mensagem_sucesso(
+        response,
+        f"Olá, <b>{usuario_entrou.nome}</b>. Seja bem-vindo(a) ao DespControl!",
+    )
     adicionar_cookie_auth(response, token)
     return response
-
-
-@router.get("/sair")
-async def get_sair(usuario_logado: Usuario = Depends(obter_usuario_logado)):
-    UsuarioRepo.alterar_token(usuario_logado.id, None)
-    return RedirectResponse(url="/")

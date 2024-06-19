@@ -6,7 +6,7 @@ from repositories.categoria_repo import CategoriaRepo
 from repositories.despesa_repo import DespesaRepo
 from repositories.usuario_repo import UsuarioRepo
 from routes import main_routes, usuario_routes
-from util.auth import atualizar_cookie_autenticacao
+from util.auth import middleware_autenticacao
 from util.exceptions import configurar_excecoes
 
 
@@ -23,11 +23,11 @@ DespesaRepo.inserir_despesas_json("sql/despesas.json")
 
 app = FastAPI()
 
-app.middleware(middleware_type="http")(atualizar_cookie_autenticacao)
+app.mount(path="/static", app=StaticFiles(directory="static"), name="static")
+
+app.middleware(middleware_type="http")(middleware_autenticacao)
 
 configurar_excecoes(app)
-
-app.mount(path="/static", app=StaticFiles(directory="static"), name="static")
 
 app.include_router(main_routes.router)
 app.include_router(usuario_routes.router)

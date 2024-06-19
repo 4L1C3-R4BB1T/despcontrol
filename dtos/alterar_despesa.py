@@ -3,7 +3,7 @@ from pydantic import BaseModel, field_validator
 from util.validators import *
 
 
-class EdicaoDespesaDTO(BaseModel):
+class AlterarDespesaDTO(BaseModel):
     descricao: str
     valor: float
     data: str

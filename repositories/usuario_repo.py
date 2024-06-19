@@ -176,3 +176,14 @@ class UsuarioRepo:
         except sqlite3.Error as ex:
             print(ex)
             return None
+
+    @classmethod
+    def alterar_senha(cls, id: int, senha: str) -> bool:
+        try:
+            with obter_conexao() as conexao:
+                cursor = conexao.cursor()
+                cursor.execute(SQL_ALTERAR_SENHA, (senha, id))
+                return cursor.rowcount > 0
+        except sqlite3.Error as ex:
+            print(ex)
+            return False

@@ -11,9 +11,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="menuPrincipal">
             <ul class="navbar-nav mb-2 mb-lg-0">
                 {% if not usuario or not usuario.nome -%}
-                <li class="nav-item">
-                    <a class="nav-link px-4 login" href="/entrar">Entrar</a>
-                </li>
+                <li class="nav-item"><a class="nav-link px-4 login" href="/entrar">Entrar</a></li>
                 {%- else: -%}
                 <form class="d-flex me-3 mt-3 mt-lg-0" role="search" action="/usuario/buscar" method="get">
                     <input class="form-control me-2" type="search" placeholder="O que deseja buscar?" name="q">
@@ -27,13 +25,10 @@
                         Olá, <b>{{ usuario.nome }}</b>!
                     </a>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item  {{ 'active' if pagina_atual == '/usuario/perfil' }}" href="/usuario/perfil">Meu Perfil</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="/sair">Sair</a></li>
+                        <li><a class="dropdown-item  {{ 'active' if pagina_atual == '/usuario/perfil' }}" href="/usuario/perfil">Meu Perfil</a></li>
+                        <li><a class="dropdown-item  {{ 'active' if pagina_atual == '/usuario/senha' }}" href="/usuario/senha">Alterar Senha</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/usuario/sair">Sair</a></li>
                     </ul>
                 </li>
                 {%- endif -%}
