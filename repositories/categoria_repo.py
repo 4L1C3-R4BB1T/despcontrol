@@ -116,10 +116,11 @@ class CategoriaRepo:
 
     @classmethod
     def inserir_categorias_padrao(cls, usuario_id: int) -> Optional[Categoria]:
+        SQL_INSERIR_CATEGORIAS = SQL_INSERIR_CATEGORIAS_PADRAO.replace("#1", f"{usuario_id}")
         try:
             with obter_conexao() as conexao:
                 cursor = conexao.cursor()
-                cursor.execute(SQL_INSERIR_CATEGORIAS_PADRAO, (usuario_id,))
+                cursor.execute(SQL_INSERIR_CATEGORIAS)
                 return cursor.rowcount > 0
         except sqlite3.Error as ex:
             print(ex)

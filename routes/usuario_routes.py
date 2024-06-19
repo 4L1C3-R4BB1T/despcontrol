@@ -25,7 +25,7 @@ templates = Jinja2Templates(directory = "templates")
 def get_despesas(request: Request, p: int = 1, tp: int = 8):
     checar_autorizacao(request)
     despesas = DespesaRepo.obter_todos_por_usuario(p, tp, request.state.usuario.id)
-    categorias = CategoriaRepo.obter_todos()
+    categorias = CategoriaRepo.obter_todos_por_usuario(request.state.usuario.id)
     qtde_despesas = DespesaRepo.obter_quantidade_por_usuario(request.state.usuario.id)
     qtde_paginas = math.ceil(qtde_despesas / float(tp))
     return templates.TemplateResponse(
@@ -100,7 +100,7 @@ async def post_cadastro_despesa(request: Request, despesa: NovaDespesaDTO):
 def get_alterar_despesa(request: Request, id_despesa: int):
     checar_autorizacao(request)
     despesa = DespesaRepo.obter_um(id_despesa)
-    categorias = CategoriaRepo.obter_todos()
+    categorias = CategoriaRepo.obter_todos_por_usuario(request.state.usuario.id)
     return templates.TemplateResponse(
         "alterar_despesa.html",
         {
@@ -127,7 +127,7 @@ async def post_alterar_despesa(request: Request, despesa: AlterarDespesaDTO):
 def get_buscar(request: Request, q: str, p: int = 1, tp: int = 8):
     checar_autorizacao(request)
     despesas = DespesaRepo.obter_busca(q, p, tp, request.state.usuario.id)
-    categorias = CategoriaRepo.obter_todos()
+    categorias = CategoriaRepo.obter_todos_por_usuario(request.state.usuario.id)
     qtde_despesas = DespesaRepo.obter_quantidade_busca(q, request.state.usuario.id)
     qtde_paginas = math.ceil(qtde_despesas / float(tp))
     return templates.TemplateResponse(

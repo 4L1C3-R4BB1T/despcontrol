@@ -8,6 +8,7 @@ from dtos.entrar_dto import EntrarDTO
 from dtos.novo_usuario_dto import NovoUsuarioDTO
 from ler_html import ler_html
 from models.usuario_model import Usuario
+from repositories.categoria_repo import CategoriaRepo
 from repositories.usuario_repo import UsuarioRepo
 from repositories.despesa_repo import DespesaRepo
 from util.auth import conferir_senha, gerar_token, obter_hash_senha
@@ -44,6 +45,8 @@ async def post_cadastro(usuario_dto: NovoUsuarioDTO):
     novo_usuario = UsuarioRepo.inserir(Usuario(**usuario_data))
     if not novo_usuario or not novo_usuario.id:
         raise HTTPException(status_code=400, detail="Erro ao cadastrar usuário.")
+    if not CategoriaRepo.inserir_categorias_padrao(novo_usuario.id):
+        raise HTTPException(status_code=400, detail="Erro ao cadastrar categorias padrão.")
     return {"redirect": {"url": "/cadastro_realizado"}}
 
 
