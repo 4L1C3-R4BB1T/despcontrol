@@ -6,3 +6,5 @@ from typing import Optional
 class Categoria:
     id: Optional[int] = None
     nome: Optional[str] = None
+    cor: Optional[str] = None
+    id_usuario: Optional[int] = None

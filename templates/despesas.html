@@ -19,8 +19,8 @@
     {% for d in despesas %}
     <div class="col">
         <div class="card h-100">
-            <div class="d-flex justify-content-between mx-3 mt-3">
-                <span class="bg-info bg-opacity-75 px-2 py-1 rounded-3 fw-semibold">{{ d.nome_categoria }}</span>
+            <div class="d-flex justify-content-between align-items-center mx-3 mt-3">
+                <span class="px-2 py-1 small rounded-3 fw-semibold" style="background-color: {{ d.cor_categoria }};">{{ d.nome_categoria }}</span>
                 <div class="d-flex flex-row ms-3 gap-3">
                     <a href="/usuario/alterar_despesa/{{ d.id }}">
                         <i class="bi bi-pencil-fill text-warning fs-4"></i>

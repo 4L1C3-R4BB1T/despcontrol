@@ -21,7 +21,11 @@ class CategoriaRepo:
                 cursor = conexao.cursor()
                 cursor.execute(
                     SQL_INSERIR,
-                    (categoria.nome,),
+                    (
+                        categoria.nome, 
+                        categoria.cor, 
+                        categoria.id_usuario,
+                    ),
                 )
                 if cursor.rowcount > 0:
                     categoria.id = cursor.lastrowid
@@ -43,13 +47,25 @@ class CategoriaRepo:
             return None
 
     @classmethod
+    def obter_todos_por_usuario(cls, usuario_id: int) -> List[Categoria]:
+        try:
+            with obter_conexao() as conexao:
+                cursor = conexao.cursor()
+                tuplas = cursor.execute(SQL_OBTER_TODOS_POR_USUARIO, (usuario_id,)).fetchall()
+                categorias = [Categoria(*t) for t in tuplas]
+                return categorias
+        except sqlite3.Error as ex:
+            print(ex)
+            return None
+
+    @classmethod
     def alterar(cls, categoria: Categoria) -> bool:
         try:
             with obter_conexao() as conexao:
                 cursor = conexao.cursor()
                 cursor.execute(
                     SQL_ALTERAR,
-                    (categoria.nome,),
+                    (categoria.nome, categoria.cor),
                 )
                 return cursor.rowcount > 0
         except sqlite3.Error as ex:
@@ -97,3 +113,14 @@ class CategoriaRepo:
                 categorias = json.load(arquivo)
                 for categoria in categorias:
                     CategoriaRepo.inserir(Categoria(**categoria))
+
+    @classmethod
+    def inserir_categorias_padrao(cls, usuario_id: int) -> Optional[Categoria]:
+        try:
+            with obter_conexao() as conexao:
+                cursor = conexao.cursor()
+                cursor.execute(SQL_INSERIR_CATEGORIAS_PADRAO, (usuario_id,))
+                return cursor.rowcount > 0
+        except sqlite3.Error as ex:
+            print(ex)
+            return None

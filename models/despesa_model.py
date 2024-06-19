@@ -11,3 +11,4 @@ class Despesa:
     id_categoria: Optional[int] = None
     id_usuario: Optional[int] = None
     nome_categoria: Optional[str] = None
+    cor_categoria: Optional[str] = None

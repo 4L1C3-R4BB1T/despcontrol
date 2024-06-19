@@ -1,35 +1,107 @@
 [
     {
-        "nome": "Alimentação"
+        "nome": "Alimentação",
+        "cor": "#FF6347",
+        "id_usuario": 1
     },
     {
-        "nome": "Transporte"
+        "nome": "Transporte",
+        "cor": "#4682B4",
+        "id_usuario": 1
     },
     {
-        "nome": "Entretenimento"
+        "nome": "Entretenimento",
+        "cor": "#FFD700",
+        "id_usuario": 1
     },
     {
-        "nome": "Educação"
+        "nome": "Educação",
+        "cor": "#8A2BE2",
+        "id_usuario": 1
     },
     {
-        "nome": "Saúde"
+        "nome": "Saúde",
+        "cor": "#32CD32",
+        "id_usuario": 1
     },
     {
-        "nome": "Moradia"
+        "nome": "Moradia",
+        "cor": "#FF4500",
+        "id_usuario": 1
     },
     {
-        "nome": "Vestuário"
+        "nome": "Vestuário",
+        "cor": "#EE82EE",
+        "id_usuario": 1
     },
     {
-        "nome": "Lazer"
+        "nome": "Lazer",
+        "cor": "#20B2AA",
+        "id_usuario": 1
     },
     {
-        "nome": "Utilidades"
+        "nome": "Utilidades",
+        "cor": "#808080",
+        "id_usuario": 1
     },
     {
-        "nome": "Telecomunicações"
+        "nome": "Telecomunicações",
+        "cor": "#1E90FF",
+        "id_usuario": 1
     },
     {
-        "nome": "Serviços"
+        "nome": "Serviços",
+        "cor": "#B22222",
+        "id_usuario": 1
+    },
+    {
+        "nome": "Investimentos",
+        "cor": "#008000",
+        "id_usuario": 1
+    },
+    {
+        "nome": "Doações",
+        "cor": "#FF69B4",
+        "id_usuario": 1
+    },
+    {
+        "nome": "Impostos",
+        "cor": "#DC143C",
+        "id_usuario": 1
+    },
+    {
+        "nome": "Seguros",
+        "cor": "#0000CD",
+        "id_usuario": 1
+    },
+    {
+        "nome": "Manutenção",
+        "cor": "#8B4513",
+        "id_usuario": 1
+    },
+    {
+        "nome": "Viagens",
+        "cor": "#FF8C00",
+        "id_usuario": 1
+    },
+    {
+        "nome": "Pets",
+        "cor": "#DA70D6",
+        "id_usuario": 1
+    },
+    {
+        "nome": "Hobbies",
+        "cor": "#00FA9A",
+        "id_usuario": 1
+    },
+    {
+        "nome": "Tecnologia",
+        "cor": "#7B68EE",
+        "id_usuario": 1
+    },
+    {
+        "nome": "Outros",
+        "cor": "#A9A9A9",
+        "id_usuario": 1
     }
 ]
