@@ -28,5 +28,7 @@ uvicorn main:app --reload
 
 * Cadastrar usuário  
 * Cadastrar despesa  
+* Cadastrar categoria  
 * Editar despesa  
+* Editar categoria  
 * Buscar despesa por descrição  

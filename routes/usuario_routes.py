@@ -148,14 +148,11 @@ def get_buscar(request: Request, q: str, p: int = 1, tp: int = 8):
 
 
 @router.get("/categorias")
-def get_despesas(request: Request, p: int = 1, tp: int = 12):
+def get_despesas(request: Request, p: int = 1, tp: int = 9):
     checar_autorizacao(request)
     categorias = CategoriaRepo.obter_todos_por_usuario_paginado(p, tp, request.state.usuario.id)
-    qtde_categorias = CategoriaRepo.obter_quantidade_por_usuario(
-        request.state.usuario.id
-    )
+    qtde_categorias = CategoriaRepo.obter_quantidade_por_usuario(request.state.usuario.id)
     qtde_paginas = math.ceil(qtde_categorias / float(tp))
-    print(qtde_categorias)
     return templates.TemplateResponse(
         "categorias.html",
         {
