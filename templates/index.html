@@ -1,7 +1,6 @@
 {% extends "/partials/base.html" %}
 {% block subtitulo %}Página Principal{% endblock %}
 {% block conteudo %}
-
 {% if not usuario or not usuario.nome -%}
 <section class="bg-dark text-white text-center py-5 mt-5">
     <h1>Bem-vindo ao DespControl</h1>
@@ -80,5 +79,4 @@
     </a>
 </section>
 {%- endif -%}
-
 {% endblock %}
