@@ -16,6 +16,7 @@ from util.auth import conferir_senha, gerar_token, obter_hash_senha
 from util.cookies import adicionar_cookie_auth, adicionar_mensagem_sucesso
 from util.pydantic import create_validation_errors
 
+
 router = APIRouter()
 
 templates = Jinja2Templates(directory="templates")
@@ -57,9 +58,7 @@ def get_cadastro_realizado(request: Request):
 
 @router.get("/entrar")
 async def get_entrar(request: Request, return_url: str = Query("/")):
-    return templates.TemplateResponse(
-        "entrar.html", {"request": request, "return_url": return_url}
-    )
+    return templates.TemplateResponse("entrar.html", {"request": request, "return_url": return_url})
 
 
 @router.post("/post_entrar", response_class=JSONResponse)
@@ -80,13 +79,8 @@ async def post_entrar(entrar_dto: EntrarDTO):
         )
     token = gerar_token()
     if not UsuarioRepo.alterar_token(usuario_entrou.id, token):
-        raise DatabaseError(
-            "Não foi possível alterar o token do usuário no banco de dados."
-        )
+        raise DatabaseError("Não foi possível alterar o token do usuário no banco de dados.")
     response = JSONResponse(content={"redirect": {"url": entrar_dto.return_url}})
-    adicionar_mensagem_sucesso(
-        response,
-        f"Olá, <b>{usuario_entrou.nome}</b>. Seja bem-vindo(a) ao DespControl!",
-    )
+    adicionar_mensagem_sucesso(response, f"Olá, <b>{usuario_entrou.nome}</b>. Seja bem-vindo(a) ao DespControl!")
     adicionar_cookie_auth(response, token)
     return response
