@@ -19,7 +19,7 @@ from util.auth import checar_autorizacao, conferir_senha, obter_hash_senha
 from util.cookies import adicionar_mensagem_erro, adicionar_mensagem_sucesso, excluir_cookie_auth
 
 
-router = APIRouter(prefix="/usuario")
+router = APIRouter(prefix="/usuario", tags=["Usuario"])
 
 templates = Jinja2Templates(directory = "templates")
 
