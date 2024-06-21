@@ -153,6 +153,29 @@ class DespesaRepo:
             return None
 
     @classmethod
+    def obter_total_gasto(cls, id: int) -> Optional[float]:
+        try:
+            with obter_conexao() as conexao:
+                cursor = conexao.cursor()
+                tupla = cursor.execute(SQL_OBTER_TOTAL_GASTO, (id,)).fetchone()
+                return float(tupla[0])
+        except sqlite3.Error as ex:
+            print(ex)
+            return None
+
+    @classmethod
+    def obter_total_gasto_busca(cls, termo: str, usuario_id: int) -> Optional[float]:
+        termo = "%"+termo+"%"
+        try:
+            with obter_conexao() as conexao:
+                cursor = conexao.cursor()
+                tupla = cursor.execute(SQL_OBTER_TOTAL_GASTO_BUSCA, (usuario_id, termo)).fetchone()
+                return float(tupla[0])
+        except sqlite3.Error as ex:
+            print(ex)
+            return None
+
+    @classmethod
     def inserir_despesas_json(cls, arquivo_json: str):
         if DespesaRepo.obter_quantidade() == 0:
             with open(arquivo_json, "r", encoding="utf-8") as arquivo:

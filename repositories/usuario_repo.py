@@ -99,14 +99,6 @@ class UsuarioRepo:
             return None
 
     @classmethod
-    def inserir_usuarios_json(cls, arquivo_json: str):
-        if UsuarioRepo.obter_quantidade() == 0:
-            with open(arquivo_json, "r", encoding="utf-8") as arquivo:
-                usuarios = json.load(arquivo)
-                for usuario in usuarios:
-                    UsuarioRepo.inserir(Usuario(**usuario))
-
-    @classmethod
     def obter_busca(cls, termo: str, pagina: int, tamanho_pagina: int) -> List[Usuario]:
         termo = "%" + termo + "%"
         offset = (pagina - 1) * tamanho_pagina
@@ -187,3 +179,11 @@ class UsuarioRepo:
         except sqlite3.Error as ex:
             print(ex)
             return False
+
+    @classmethod
+    def inserir_usuarios_json(cls, arquivo_json: str):
+        if UsuarioRepo.obter_quantidade() == 0:
+            with open(arquivo_json, "r", encoding="utf-8") as arquivo:
+                usuarios = json.load(arquivo)
+                for usuario in usuarios:
+                    UsuarioRepo.inserir(Usuario(**usuario))

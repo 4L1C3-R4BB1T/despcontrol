@@ -9,7 +9,10 @@
 </div>
 <hr>
 {%- set url = 'despesas' -%}
-{% include "paging.html" %}
+<div class="d-flex justify-content-between">
+    <span class="fs-4 fw-bold text-danger">Total: R$ {{ "{:,.2f}".format(total_gasto) }}</span>
+    {% include "paging.html" %}
+</div>
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3 mb-4">
     {% if not despesas %}
     <div class="col-lg-6 mx-auto text-center">
@@ -21,7 +24,7 @@
     <div class="col">
         <div class="card h-100 shadow">
             <div class="d-flex justify-content-between align-items-center mx-3 mt-3">
-                <span class="px-2 py-1 small rounded-2 fw-semibold text-light" style="background-color: {{ d.cor_categoria }}; text-shadow: 1.5px 1.5px #000;">{{ d.nome_categoria }}</span>
+                <span class="px-2 py-1 small rounded-2 fw-semibold text-light shadow" style="background-color: {{ d.cor_categoria }}; text-shadow: 1.5px 1.5px #000;">{{ d.nome_categoria }}</span>
                 <div class="d-flex gap-3">
                     <a href="/usuario/alterar_despesa/{{ d.id }}">
                         <i class="bi bi-pencil-fill text-warning fs-4 p-1 rounded-3 shadow"></i>
@@ -36,8 +39,9 @@
                     {{ d.descricao }}
                 </h5>
                 <div>
+                    {%- set ano, mes, dia = d.data.split('-') -%}
                     <p class="card-text">
-                        {{ d.data }}
+                        {{ dia + '/' + mes + '/' + ano }}
                     </p>
                     <p class="lead text-danger fw-bold mb-0">
                         R$ {{ "{:,.2f}".format(d.valor) }}

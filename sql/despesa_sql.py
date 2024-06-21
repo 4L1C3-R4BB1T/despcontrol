@@ -87,3 +87,13 @@ SQL_OBTER_QUANTIDADE_BUSCA = """
     SELECT COUNT(*) FROM despesa
     WHERE id_usuario=? AND descricao LIKE ?
 """
+
+SQL_OBTER_TOTAL_GASTO = """
+    SELECT SUM(valor) FROM despesa
+    WHERE id_usuario=?
+"""
+
+SQL_OBTER_TOTAL_GASTO_BUSCA = """
+    SELECT SUM(valor) FROM despesa
+    WHERE id_usuario=? AND descricao LIKE ?
+"""

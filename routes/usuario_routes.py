@@ -27,10 +27,12 @@ templates = Jinja2Templates(directory = "templates")
 @router.get("/despesas")
 def get_despesas(request: Request, p: int = 1, tp: int = 8):
     checar_autorizacao(request)
-    despesas = DespesaRepo.obter_todos_por_usuario(p, tp, request.state.usuario.id)
-    categorias = CategoriaRepo.obter_todos_por_usuario(request.state.usuario.id)
-    qtde_despesas = DespesaRepo.obter_quantidade_por_usuario(request.state.usuario.id)
+    usuario_id = request.state.usuario.id
+    despesas = DespesaRepo.obter_todos_por_usuario(p, tp, usuario_id)
+    categorias = CategoriaRepo.obter_todos_por_usuario(usuario_id)
+    qtde_despesas = DespesaRepo.obter_quantidade_por_usuario(usuario_id)
     qtde_paginas = math.ceil(qtde_despesas / float(tp))
+    total_gasto = DespesaRepo.obter_total_gasto(usuario_id)
     return templates.TemplateResponse(
         "despesas.html",
         {
@@ -40,6 +42,7 @@ def get_despesas(request: Request, p: int = 1, tp: int = 8):
             "quantidade_paginas": qtde_paginas,
             "tamanho_pagina": tp,
             "pagina_atual": p,
+            "total_gasto": total_gasto,
         },
     )
 
@@ -129,10 +132,12 @@ async def post_alterar_despesa(request: Request, despesa: AlterarDespesaDTO):
 @router.get("/buscar")
 def get_buscar(request: Request, q: str, p: int = 1, tp: int = 8):
     checar_autorizacao(request)
-    despesas = DespesaRepo.obter_busca(q, p, tp, request.state.usuario.id)
-    categorias = CategoriaRepo.obter_todos_por_usuario(request.state.usuario.id)
-    qtde_despesas = DespesaRepo.obter_quantidade_busca(q, request.state.usuario.id)
+    usuario_id = request.state.usuario.id
+    despesas = DespesaRepo.obter_busca(q, p, tp, usuario_id)
+    categorias = CategoriaRepo.obter_todos_por_usuario(usuario_id)
+    qtde_despesas = DespesaRepo.obter_quantidade_busca(q, usuario_id)
     qtde_paginas = math.ceil(qtde_despesas / float(tp))
+    total_gasto = DespesaRepo.obter_total_gasto_busca(q, usuario_id)
     return templates.TemplateResponse(
         "despesas.html",
         {
@@ -143,6 +148,7 @@ def get_buscar(request: Request, q: str, p: int = 1, tp: int = 8):
             "tamanho_pagina": tp,
             "pagina_atual": p,
             "termo_busca": q,
+            "total_gasto": total_gasto,
         },
     )
 
@@ -150,8 +156,9 @@ def get_buscar(request: Request, q: str, p: int = 1, tp: int = 8):
 @router.get("/categorias")
 def get_despesas(request: Request, p: int = 1, tp: int = 9):
     checar_autorizacao(request)
-    categorias = CategoriaRepo.obter_todos_por_usuario_paginado(p, tp, request.state.usuario.id)
-    qtde_categorias = CategoriaRepo.obter_quantidade_por_usuario(request.state.usuario.id)
+    usuario_id = request.state.usuario.id
+    categorias = CategoriaRepo.obter_todos_por_usuario_paginado(p, tp, usuario_id)
+    qtde_categorias = CategoriaRepo.obter_quantidade_por_usuario(usuario_id)
     qtde_paginas = math.ceil(qtde_categorias / float(tp))
     return templates.TemplateResponse(
         "categorias.html",
