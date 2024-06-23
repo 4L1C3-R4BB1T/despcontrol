@@ -222,6 +222,13 @@ def get_excluir_categoria(request: Request, id_categoria: int):
 @router.post("/post_excluir_categoria/{id_categoria}")
 async def post_excluir_categoria(request: Request, id_categoria: int):
     checar_autorizacao(request)
+    if DespesaRepo.obter_quantidade_por_usuario_categoria(request.state.usuario.id, id_categoria) > 0:
+        response = JSONResponse(content={"redirect": {"url": "/usuario/categorias"}})
+        adicionar_mensagem_erro(
+            response,
+            "Erro ao excluir categoria: há despesas associadas a essa categoria. Remova-as primeiro.",
+        )
+        return response        
     if not CategoriaRepo.excluir(id_categoria):
         raise HTTPException(status_code=400, detail="Erro ao excluir categoria.")
     response = JSONResponse(content={"redirect": {"url": "/usuario/categorias"}})

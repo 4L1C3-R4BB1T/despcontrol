@@ -51,6 +51,11 @@ SQL_OBTER_QUANTIDADE_POR_USUARIO = """
     WHERE id_usuario=?
 """
 
+SQL_OBTER_QUANTIDADE_POR_USUARIO_CATEGORIA = """
+    SELECT COUNT(*) FROM despesa
+    WHERE id_usuario=? AND id_categoria=?
+"""
+
 SQL_OBTER_PERIODO = """
     SELECT id, descricao, valor, data, id_categoria, id_usuario, categoria.nome AS nome_categoria
     FROM despesa 

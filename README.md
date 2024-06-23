@@ -31,4 +31,6 @@ uvicorn main:app --reload
 * Cadastrar categoria  
 * Editar despesa  
 * Editar categoria  
+* Excluir despesa  
+* Excluir categoria  
 * Buscar despesa por descrição  

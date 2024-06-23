@@ -112,6 +112,17 @@ class DespesaRepo:
         except sqlite3.Error as ex:
             print(ex)
             return None
+        
+    @classmethod
+    def obter_quantidade_por_usuario_categoria(cls, usuario_id: int, categoria_id: int) -> Optional[int]:
+        try:
+            with obter_conexao() as conexao:
+                cursor = conexao.cursor()
+                tupla = cursor.execute(SQL_OBTER_QUANTIDADE_POR_USUARIO_CATEGORIA, (usuario_id, categoria_id)).fetchone()
+                return int(tupla[0])
+        except sqlite3.Error as ex:
+            print(ex)
+            return None
 
     @classmethod
     def obter_todos_por_usuario(cls, pagina: int, tamanho_pagina: int, usuario_id: int) -> Optional[Despesa]:
