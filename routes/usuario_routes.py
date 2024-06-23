@@ -24,29 +24,6 @@ router = APIRouter(prefix="/usuario", tags=["Usuario"])
 templates = Jinja2Templates(directory = "templates")
 
 
-@router.get("/despesas")
-def get_despesas(request: Request, p: int = 1, tp: int = 8):
-    checar_autorizacao(request)
-    usuario_id = request.state.usuario.id
-    despesas = DespesaRepo.obter_todos_por_usuario(p, tp, usuario_id)
-    categorias = CategoriaRepo.obter_todos_por_usuario(usuario_id)
-    qtde_despesas = DespesaRepo.obter_quantidade_por_usuario(usuario_id)
-    qtde_paginas = math.ceil(qtde_despesas / float(tp))
-    total_gasto = DespesaRepo.obter_total_gasto(usuario_id)
-    return templates.TemplateResponse(
-        "despesas.html",
-        {
-            "request": request,
-            "despesas": despesas,
-            "categorias": categorias,
-            "quantidade_paginas": qtde_paginas,
-            "tamanho_pagina": tp,
-            "pagina_atual": p,
-            "total_gasto": total_gasto,
-        },
-    )
-
-
 @router.get("/perfil")
 def get_perfil(request: Request):
     checar_autorizacao(request)
@@ -89,6 +66,29 @@ async def post_senha(request: Request, alterar_dto: AlterarSenhaDTO):
     return response
 
 
+@router.get("/despesas")
+def get_despesas(request: Request, p: int = 1, tp: int = 8):
+    checar_autorizacao(request)
+    usuario_id = request.state.usuario.id
+    despesas = DespesaRepo.obter_todos_por_usuario(p, tp, usuario_id)
+    categorias = CategoriaRepo.obter_todos_por_usuario(usuario_id)
+    qtde_despesas = DespesaRepo.obter_quantidade_por_usuario(usuario_id)
+    qtde_paginas = math.ceil(qtde_despesas / float(tp))
+    total_gasto = DespesaRepo.obter_total_gasto(usuario_id)
+    return templates.TemplateResponse(
+        "despesas.html",
+        {
+            "request": request,
+            "despesas": despesas,
+            "categorias": categorias,
+            "quantidade_paginas": qtde_paginas,
+            "tamanho_pagina": tp,
+            "pagina_atual": p,
+            "total_gasto": total_gasto,
+        },
+    )
+
+
 @router.post("/post_cadastro_despesa", response_class=JSONResponse)
 async def post_cadastro_despesa(request: Request, despesa: NovaDespesaDTO):
     checar_autorizacao(request)
@@ -117,7 +117,7 @@ def get_alterar_despesa(request: Request, id_despesa: int):
     )
 
 
-@router.post("/post_alterar_despesa", response_class=JSONResponse)
+@router.post("/post_alterar_despesa/{id_despesa}", response_class=JSONResponse)
 async def post_alterar_despesa(request: Request, despesa: AlterarDespesaDTO):
     checar_autorizacao(request)
     despesa_data = despesa.model_dump()
@@ -129,28 +129,27 @@ async def post_alterar_despesa(request: Request, despesa: AlterarDespesaDTO):
     return response
 
 
-@router.get("/buscar")
-def get_buscar(request: Request, q: str, p: int = 1, tp: int = 8):
+@router.get("/excluir_despesa/{id_despesa}")
+def get_excluir_despesa(request: Request, id_despesa: int):
     checar_autorizacao(request)
-    usuario_id = request.state.usuario.id
-    despesas = DespesaRepo.obter_busca(q, p, tp, usuario_id)
-    categorias = CategoriaRepo.obter_todos_por_usuario(usuario_id)
-    qtde_despesas = DespesaRepo.obter_quantidade_busca(q, usuario_id)
-    qtde_paginas = math.ceil(qtde_despesas / float(tp))
-    total_gasto = DespesaRepo.obter_total_gasto_busca(q, usuario_id)
+    despesa = DespesaRepo.obter_um(id_despesa)
     return templates.TemplateResponse(
-        "despesas.html",
+        "excluir_despesa.html",
         {
             "request": request,
-            "despesas": despesas,
-            "categorias": categorias,
-            "quantidade_paginas": qtde_paginas,
-            "tamanho_pagina": tp,
-            "pagina_atual": p,
-            "termo_busca": q,
-            "total_gasto": total_gasto,
+            "despesa": despesa
         },
     )
+
+
+@router.post("/post_excluir_despesa/{id_despesa}")
+async def post_excluir_despesa(request: Request, id_despesa: int):
+    checar_autorizacao(request)
+    if not DespesaRepo.excluir(id_despesa):
+        raise HTTPException(status_code=400, detail="Erro ao excluir despesa.")
+    response = JSONResponse(content={"redirect": {"url": "/usuario/despesas"}})
+    adicionar_mensagem_sucesso(response, "Despesa excluída com sucesso.")
+    return response
 
 
 @router.get("/categorias")
@@ -198,7 +197,7 @@ def get_alterar_categoria(request: Request, id_categoria: int):
     )
 
 
-@router.post("/post_alterar_categoria", response_class=JSONResponse)
+@router.post("/post_alterar_categoria/{id_categoria}", response_class=JSONResponse)
 async def post_alterar_categoria(request: Request, categoria: AlterarCategoriaDTO):
     checar_autorizacao(request)
     categoria_data = categoria.model_dump()
@@ -208,6 +207,50 @@ async def post_alterar_categoria(request: Request, categoria: AlterarCategoriaDT
     response = JSONResponse(content={"redirect": {"url": "/usuario/categorias"}})
     adicionar_mensagem_sucesso(response, "Categoria atualizada com sucesso.")
     return response
+
+
+@router.get("/excluir_categoria/{id_categoria}")
+def get_excluir_categoria(request: Request, id_categoria: int):
+    checar_autorizacao(request)
+    categoria = CategoriaRepo.obter_um(id_categoria)
+    return templates.TemplateResponse(
+        "excluir_categoria.html",
+        {"request": request, "categoria": categoria},
+    )
+
+
+@router.post("/post_excluir_categoria/{id_categoria}")
+async def post_excluir_categoria(request: Request, id_categoria: int):
+    checar_autorizacao(request)
+    if not CategoriaRepo.excluir(id_categoria):
+        raise HTTPException(status_code=400, detail="Erro ao excluir categoria.")
+    response = JSONResponse(content={"redirect": {"url": "/usuario/categorias"}})
+    adicionar_mensagem_sucesso(response, "Categoria excluída com sucesso.")
+    return response
+
+
+@router.get("/buscar")
+def get_buscar(request: Request, q: str, p: int = 1, tp: int = 8):
+    checar_autorizacao(request)
+    usuario_id = request.state.usuario.id
+    despesas = DespesaRepo.obter_busca(q, p, tp, usuario_id)
+    categorias = CategoriaRepo.obter_todos_por_usuario(usuario_id)
+    qtde_despesas = DespesaRepo.obter_quantidade_busca(q, usuario_id)
+    qtde_paginas = math.ceil(qtde_despesas / float(tp))
+    total_gasto = DespesaRepo.obter_total_gasto_busca(q, usuario_id)
+    return templates.TemplateResponse(
+        "despesas.html",
+        {
+            "request": request,
+            "despesas": despesas,
+            "categorias": categorias,
+            "quantidade_paginas": qtde_paginas,
+            "tamanho_pagina": tp,
+            "pagina_atual": p,
+            "termo_busca": q,
+            "total_gasto": total_gasto,
+        },
+    )
 
 
 @router.get("/sair", response_class=RedirectResponse)
