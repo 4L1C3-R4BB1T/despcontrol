@@ -112,7 +112,7 @@ class DespesaRepo:
         except sqlite3.Error as ex:
             print(ex)
             return None
-        
+
     @classmethod
     def obter_quantidade_por_usuario_categoria(cls, usuario_id: int, categoria_id: int) -> Optional[int]:
         try:
@@ -169,7 +169,7 @@ class DespesaRepo:
             with obter_conexao() as conexao:
                 cursor = conexao.cursor()
                 tupla = cursor.execute(SQL_OBTER_TOTAL_GASTO, (id,)).fetchone()
-                return float(tupla[0])
+                return float(tupla[0]) if tupla[0] else 0
         except sqlite3.Error as ex:
             print(ex)
             return None
@@ -181,7 +181,7 @@ class DespesaRepo:
             with obter_conexao() as conexao:
                 cursor = conexao.cursor()
                 tupla = cursor.execute(SQL_OBTER_TOTAL_GASTO_BUSCA, (usuario_id, termo)).fetchone()
-                return float(tupla[0])
+                return float(tupla[0]) if tupla[0] else 0
         except sqlite3.Error as ex:
             print(ex)
             return None

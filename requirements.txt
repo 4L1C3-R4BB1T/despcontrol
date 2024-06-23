@@ -7,5 +7,4 @@ jinja2
 python-multipart
 pillow
 bcrypt
-mercadopago
 python-dotenv
