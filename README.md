@@ -26,11 +26,13 @@ uvicorn main:app --reload
 
 ## 💻 Funcionalidades 
 
-* Cadastrar usuário  
-* Cadastrar despesa  
-* Cadastrar categoria  
-* Editar despesa  
-* Editar categoria  
+* Cadastrar usuário
+* Alterar Perfil
+* Alterar Senha 
+* Cadastrar despesa
+* Alterar despesa
 * Excluir despesa  
-* Excluir categoria  
 * Buscar despesa por descrição  
+* Cadastrar categoria
+* Alterar categoria
+* Excluir categoria  
