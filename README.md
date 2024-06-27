@@ -38,3 +38,15 @@ uvicorn main:app --reload
 * Cadastrar categoria
 * Alterar categoria
 * Excluir categoria  
+
+---
+
+## Usuários pré-cadastrados
+
+```
+email: joao@email.com  
+senha: S3nh@
+
+email: maria@email.com
+senha: S3nh@
+```
