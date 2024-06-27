@@ -5,13 +5,13 @@ from fastapi.templating import Jinja2Templates
 
 from dtos.entrar_dto import EntrarDTO
 from dtos.novo_usuario_dto import NovoUsuarioDTO
-from html import ler_html
 from models.usuario_model import Usuario
 from repositories.categoria_repo import CategoriaRepo
 from repositories.usuario_repo import UsuarioRepo
 from util.auth import conferir_senha, gerar_token, obter_hash_senha
 
 from util.cookies import adicionar_cookie_auth, adicionar_mensagem_sucesso
+from util.html import ler_html
 from util.pydantic import create_validation_errors
 
 
