@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  web:
+    container_name: despcontrol.cachoeiro.es
+    build: .
+    ports:
+      - "8071:8000"
+    
