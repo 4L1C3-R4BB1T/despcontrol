@@ -1,16 +1,14 @@
-import math
 from sqlite3 import DatabaseError
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
+from fastapi import APIRouter, HTTPException, Query, Request, status
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 
 from dtos.entrar_dto import EntrarDTO
 from dtos.novo_usuario_dto import NovoUsuarioDTO
-from ler_html import ler_html
+from html import ler_html
 from models.usuario_model import Usuario
 from repositories.categoria_repo import CategoriaRepo
 from repositories.usuario_repo import UsuarioRepo
-from repositories.despesa_repo import DespesaRepo
 from util.auth import conferir_senha, gerar_token, obter_hash_senha
 
 from util.cookies import adicionar_cookie_auth, adicionar_mensagem_sucesso
