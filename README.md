@@ -4,6 +4,7 @@ O DespControl consiste em um gerenciador de despesas.
 
 ---
 
+<!-- 
 ## ⚙️ Como executar o projeto
 
 ```bash
@@ -17,6 +18,7 @@ uvicorn main:app --reload
 ```
 
 ---
+-->
 
 ## 📌 Modelo
 
