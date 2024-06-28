@@ -1,6 +1,10 @@
 ## 💵 Sobre
 
-O DespControl consiste em um gerenciador de despesas.
+O DespControl consiste em um gerenciador de despesas. O usuário pode se cadastrar e criar suas próprias despesas e categorias, de forma a fazer um melhor gerenciamento de seus gastos.
+
+Esse projeto faz parte da disciplina de Desenvolvimento Web, ministrada pelo professor Ricardo Maroquio. A disciplina faz parte do curso de Sistemas de Informação, ofertado pelo Instituto Federal do Espírito Santo - campus Cachoeiro de Itapemirim.
+
+O trabalho foi desenvolvido por [Gabriel Cardoso Girarde](https://github.com/GNobroga) e [Livia Guimarães de Jesus](https://github.com/4L1C3-R4BB1T).
 
 ---
  
@@ -45,3 +49,15 @@ https://despcontrol.cachoeiro.es
 * Cadastrar categoria
 * Alterar categoria
 * Excluir categoria  
+
+---
+
+## 👩‍💼Usuários Teste
+
+```
+email: joao@email.com  
+senha: S3nh@
+
+email: maria@email.com
+senha: S3nh@
+```
