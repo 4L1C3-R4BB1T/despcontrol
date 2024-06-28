@@ -7,7 +7,7 @@ Esse projeto faz parte da disciplina de Desenvolvimento Web, ministrada pelo pro
 O trabalho foi desenvolvido por [Gabriel Cardoso Girarde](https://github.com/GNobroga) e [Livia Guimarães de Jesus](https://github.com/4L1C3-R4BB1T).
 
 ---
- 
+
 ## ⚙️ Como executar o projeto
 
 Execute o comando abaixo para criar e executar o container docker:
@@ -29,28 +29,6 @@ https://despcontrol.cachoeiro.es
 ```
 
 ---
--->
-
-## 📌 Modelo
-
-![Modelo](https://github.com/4L1C3-R4BB1T/despcontrol/blob/main/modelo.png)
-
----
-
-## 💻 Funcionalidades 
-
-* Cadastrar usuário
-* Alterar Perfil
-* Alterar Senha 
-* Cadastrar despesa
-* Alterar despesa
-* Excluir despesa  
-* Buscar despesa por descrição  
-* Cadastrar categoria
-* Alterar categoria
-* Excluir categoria  
-
----
 
 ## 👩‍💼Usuários Teste
 
@@ -61,3 +39,29 @@ senha: S3nh@
 email: maria@email.com
 senha: S3nh@
 ```
+
+---
+
+
+## 💻 Funcionalidades 
+
+* Usuário
+    * Cadastrar usuário
+    * Alterar Perfil
+    * Alterar Senha
+* Despesa 
+    * Cadastrar despesa
+    * Alterar despesa
+    * Excluir despesa  
+    * Buscar despesa por descrição  
+* Categoria
+    * Cadastrar categoria
+    * Alterar categoria
+    * Excluir categoria  
+
+---
+
+## 📌 Modelo
+
+![Modelo](https://github.com/4L1C3-R4BB1T/despcontrol/blob/main/modelo.png)
+
