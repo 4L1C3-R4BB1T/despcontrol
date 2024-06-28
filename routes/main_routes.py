@@ -31,6 +31,11 @@ def get_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
+@router.get("/sobre")
+def get_sobre(request: Request):
+    return templates.TemplateResponse("sobre.html", {"request": request})
+
+
 @router.get("/cadastro")
 def get_cadastro(request: Request):
     return templates.TemplateResponse("cadastro.html", {"request": request})

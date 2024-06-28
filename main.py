@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-import uvicorn
 
 from repositories.categoria_repo import CategoriaRepo
 from repositories.despesa_repo import DespesaRepo
@@ -10,7 +9,6 @@ from util.auth import middleware_autenticacao
 from util.exceptions import configurar_excecoes
 
 
-# senha: S3nh@
 UsuarioRepo.criar_tabela()
 UsuarioRepo.inserir_usuarios_json("sql/usuarios.json")
 
@@ -31,7 +29,3 @@ configurar_excecoes(app)
 
 app.include_router(main_routes.router)
 app.include_router(usuario_routes.router)
-
-
-# if __name__ == "__main__":
-#     uvicorn.run(app="main:app", port=8000, reload=True)

@@ -3,18 +3,25 @@
 O DespControl consiste em um gerenciador de despesas.
 
 ---
-
-<!-- 
+ 
 ## ⚙️ Como executar o projeto
 
+Execute o comando abaixo para criar e executar o container docker:
+
 ```bash
-python ./main.py
+docker compose up -d
 ```
 
-Ou também:
+Acesse o projeto pelo link:
 
 ```bash
-uvicorn main:app --reload 
+http://localhost:8071
+```
+
+Para acessar o projeto online:
+
+```bash
+https://despcontrol.cachoeiro.es
 ```
 
 ---
