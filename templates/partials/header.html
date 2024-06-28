@@ -10,27 +10,38 @@
         {% set pagina_atual = request.url.path %}
         <div class="collapse navbar-collapse justify-content-end" id="menuPrincipal">
             <ul class="navbar-nav mb-2 mb-lg-0 gap-lg-2">
-                {% if not usuario or not usuario.nome -%}
-                <li class="nav-item"><a class="nav-link px-4 login" href="/entrar">Entrar</a></li>
-                {%- else: -%}
+                {% if usuario or usuario.nome -%}
                 <form class="d-flex mt-3 mt-lg-0" role="search" action="/usuario/buscar" method="get">
                     <input class="form-control me-2" type="search" placeholder="Busque suas despesas" name="q">
                     <button class="btn btn-light" type="submit">Buscar</button>
                 </form>
+                {%- endif -%}
                 <li class="nav-item">
-                    <a class="nav-link {{ 'active' if pagina_atual == '/entrar' }}" href="/usuario/despesas">Despesas</a>
+                    <a class="nav-link {{ 'active' if pagina_atual == '/sobre' }}" href="/sobre">Sobre</a>
+                </li>
+                {% if not usuario or not usuario.nome -%}
+                <li class="nav-item"><a class="nav-link px-4 login" href="/entrar">Entrar</a></li>
+                {%- else: -%}
+                <li class="nav-item">
+                    <a class="nav-link {{ 'active' if pagina_atual == '/usuario/despesas' }}"
+                        href="/usuario/despesas">Despesas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ 'active' if pagina_atual == '/entrar' }}" href="/usuario/categorias">Categorias</a>
+                    <a class="nav-link {{ 'active' if pagina_atual == '/usuario/categorias' }}"
+                        href="/usuario/categorias">Categorias</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         Olá, <b>{{ usuario.nome }}</b>!
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item  {{ 'active' if pagina_atual == '/usuario/perfil' }}" href="/usuario/perfil">Meu Perfil</a></li>
-                        <li><a class="dropdown-item  {{ 'active' if pagina_atual == '/usuario/senha' }}" href="/usuario/senha">Alterar Senha</a></li>
-                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item  {{ 'active' if pagina_atual == '/usuario/perfil' }}"
+                                href="/usuario/perfil">Meu Perfil</a></li>
+                        <li><a class="dropdown-item  {{ 'active' if pagina_atual == '/usuario/senha' }}"
+                                href="/usuario/senha">Alterar Senha</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li><a class="dropdown-item" href="/usuario/sair">Sair</a></li>
                     </ul>
                 </li>
