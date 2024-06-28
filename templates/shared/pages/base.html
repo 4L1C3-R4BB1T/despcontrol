@@ -11,11 +11,11 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
     {%- set usuario = request.state.usuario -%}
-    {% include "/partials/header.html" %}
+    {% include "includes/header.html" %}
     <main class="container mt-3">
         <div class="row">
             <div class="col-12">
-                {% include "/messages/message.html" %}
+                {% include "includes/message.html" %}
             </div>
             <div class="col-12">
                 {% block topo %}{% endblock %}
@@ -23,7 +23,7 @@
         </div>
         {% block conteudo %}{% endblock %}
     </main>
-    {% include "/partials/footer.html" %}
+    {% include "includes/footer.html" %}
     <script src="/static/lib/bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 </html>

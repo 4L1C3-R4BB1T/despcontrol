@@ -1,15 +1,15 @@
-{% extends "/partials/base.html" %}
-{% block subtitulo %}Excluir Despesa{% endblock %}
+{% extends "pages/base.html" %}
+{% block subtitulo %}Excluir Categoria{% endblock %}
 {% block conteudo %}
 <div class="col-12 col-lg-6 mx-auto">
     <div class="border border-dark border-1 rounded-4 p-5 mt-5 shadow">
-        <h1 class="display-5"><b>Excluir Despesa</b></h1>
+        <h1 class="display-5"><b>Excluir Categoria</b></h1>
         <hr>
-        <p class="fs-5">Tem certeza de que deseja excluir a despesa <b class="text-danger">{{ despesa.descricao }}</b>?</p>
-        <form class="row json-form" method="post" action="/usuario/post_excluir_despesa/{{ despesa.id }}">
-            <input type="hidden" name="descricao" value="{{ despesa.descricao }}">
+        <p class="fs-5">Tem certeza de que deseja excluir a categoria <b class="text-danger">{{ categoria.nome }}</b>?</p>
+        <form class="row json-form" method="post" action="/usuario/post_excluir_categoria/{{ categoria.id }}">
+            <input type="hidden" name="nome" value="{{ categoria.nome }}">
             <div class="d-flex justify-content-end gap-2 mt-3">
-                <a href="/usuario/despesas"
+                <a href="/usuario/categorias"
                     class="bg-success text-light text-decoration-none d-flex justify-content-center align-items-center px-4 py-2 fs-5 rounded-3">Voltar</a>
                 <button type="submit" class="btn btn-lg btn-danger">Excluir</button>
             </div>

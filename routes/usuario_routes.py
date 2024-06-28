@@ -17,17 +17,18 @@ from repositories.despesa_repo import DespesaRepo
 from repositories.usuario_repo import UsuarioRepo
 from util.auth import checar_autorizacao, conferir_senha, obter_hash_senha
 from util.cookies import adicionar_mensagem_erro, adicionar_mensagem_sucesso, excluir_cookie_auth
+from util.templates import obter_jinja_templates
 
 
 router = APIRouter(prefix="/usuario", tags=["Usuario"])
 
-templates = Jinja2Templates(directory = "templates")
+templates = obter_jinja_templates("templates/usuario")
 
 
 @router.get("/perfil")
 def get_perfil(request: Request):
     checar_autorizacao(request)
-    return templates.TemplateResponse("perfil.html", {"request": request})
+    return templates.TemplateResponse("pages/perfil.html", {"request": request})
 
 
 @router.post("/post_perfil", response_class=JSONResponse)
@@ -46,7 +47,7 @@ async def post_dados(request: Request, alterar_dto: AlterarUsuarioDTO):
 @router.get("/senha")
 async def get_senha(request: Request):
     checar_autorizacao(request)
-    return templates.TemplateResponse("senha_usuario.html", {"request": request})
+    return templates.TemplateResponse("pages/senha_usuario.html", {"request": request})
 
 
 @router.post("/post_senha", response_class=JSONResponse)
@@ -76,7 +77,7 @@ def get_despesas(request: Request, p: int = 1, tp: int = 8):
     qtde_paginas = math.ceil(qtde_despesas / float(tp))
     total_gasto = DespesaRepo.obter_total_gasto(usuario_id)
     return templates.TemplateResponse(
-        "despesas.html",
+        "pages/despesas.html",
         {
             "request": request,
             "despesas": despesas,
@@ -108,7 +109,7 @@ def get_alterar_despesa(request: Request, id_despesa: int):
     despesa = DespesaRepo.obter_um(id_despesa)
     categorias = CategoriaRepo.obter_todos_por_usuario(request.state.usuario.id)
     return templates.TemplateResponse(
-        "alterar_despesa.html",
+        "pages/alterar_despesa.html",
         {
             "request": request,
             "despesa": despesa,
@@ -134,11 +135,8 @@ def get_excluir_despesa(request: Request, id_despesa: int):
     checar_autorizacao(request)
     despesa = DespesaRepo.obter_um(id_despesa)
     return templates.TemplateResponse(
-        "excluir_despesa.html",
-        {
-            "request": request,
-            "despesa": despesa
-        },
+        "pages/excluir_despesa.html",
+        {"request": request, "despesa": despesa},
     )
 
 
@@ -160,7 +158,7 @@ def get_despesas(request: Request, p: int = 1, tp: int = 9):
     qtde_categorias = CategoriaRepo.obter_quantidade_por_usuario(usuario_id)
     qtde_paginas = math.ceil(qtde_categorias / float(tp))
     return templates.TemplateResponse(
-        "categorias.html",
+        "pages/categorias.html",
         {
             "request": request,
             "categorias": categorias,
@@ -189,7 +187,7 @@ def get_alterar_categoria(request: Request, id_categoria: int):
     checar_autorizacao(request)
     categoria = CategoriaRepo.obter_um(id_categoria)
     return templates.TemplateResponse(
-        "alterar_categoria.html",
+        "pages/alterar_categoria.html",
         {
             "request": request,
             "categoria": categoria,
@@ -214,8 +212,11 @@ def get_excluir_categoria(request: Request, id_categoria: int):
     checar_autorizacao(request)
     categoria = CategoriaRepo.obter_um(id_categoria)
     return templates.TemplateResponse(
-        "excluir_categoria.html",
-        {"request": request, "categoria": categoria},
+        "pages/excluir_categoria.html",
+        {
+            "request": request, 
+            "categoria": categoria
+        },
     )
 
 
@@ -246,7 +247,7 @@ def get_buscar(request: Request, q: str, p: int = 1, tp: int = 8):
     qtde_paginas = math.ceil(qtde_despesas / float(tp))
     total_gasto = DespesaRepo.obter_total_gasto_busca(q, usuario_id)
     return templates.TemplateResponse(
-        "despesas.html",
+        "pages/despesas.html",
         {
             "request": request,
             "despesas": despesas,

@@ -1,4 +1,4 @@
-{% extends "/partials/base.html" %}
+{% extends "pages/base.html" %}
 {% block subtitulo %}Categorias{% endblock %}
 {% block conteudo %}
 <div class="d-flex justify-content-between align-items-center">
@@ -9,7 +9,7 @@
 </div>
 <hr>
 {%- set url = 'categorias' -%}
-{% include "paging.html" %}
+{% include "includes/paging.html" %}
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mb-4">
     {% if not categorias %}
     <div class="col-lg-6 mx-auto text-center">

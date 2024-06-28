@@ -6,6 +6,11 @@ def adicionar_mensagem_sucesso(response, mensagem):
     return response
 
 
+def adicionar_mensagem_info(response, mensagem):
+    response.set_cookie(key="message_info", value=mensagem, max_age=1, httponly=True,samesite="lax")
+    return response
+
+
 def adicionar_mensagem_alerta(response, mensagem):
     response.set_cookie(key="message_warning", value=mensagem, max_age=1, httponly=True, samesite="lax")
     return response

@@ -1,12 +1,10 @@
 import logging
-from fastapi import Depends, FastAPI, HTTPException, Request, status
+from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.responses import RedirectResponse
-from fastapi.templating import Jinja2Templates
-from models.usuario_model import Usuario
 from util.cookies import adicionar_mensagem_erro
-from util.auth import obter_usuario_logado
+from util.templates import obter_jinja_templates
 
-templates = Jinja2Templates(directory="templates")
+templates = obter_jinja_templates("templates")
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -40,7 +38,7 @@ def configurar_excecoes(app: FastAPI):
     @app.exception_handler(404)
     async def page_not_found_exception_handler(request: Request, _):
         return templates.TemplateResponse(
-            "404.html", {"request": request, "usuario": request.state.usuario}
+            "pages/404.html", {"request": request, "usuario": request.state.usuario}
         )
 
     @app.exception_handler(HTTPException)
@@ -52,7 +50,7 @@ def configurar_excecoes(app: FastAPI):
             "detail": "Erro na requisição HTTP.",
         }
         return templates.TemplateResponse(
-            "erro.html", view_model, status_code=ex.status_code
+            "pages/erro.html", view_model, status_code=ex.status_code
         )
 
     @app.exception_handler(Exception)
@@ -63,4 +61,6 @@ def configurar_excecoes(app: FastAPI):
             "usuario": request.state.usuario,
             "detail": "Erro interno do servidor.",
         }
-        return templates.TemplateResponse("erro.html", view_model, status_code=500)
+        return templates.TemplateResponse(
+            "pages/erro.html", view_model, status_code=500
+        )

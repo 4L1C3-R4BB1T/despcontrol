@@ -13,11 +13,12 @@ from util.auth import conferir_senha, gerar_token, obter_hash_senha
 from util.cookies import adicionar_cookie_auth, adicionar_mensagem_sucesso
 from util.html import ler_html
 from util.pydantic import create_validation_errors
+from util.templates import obter_jinja_templates
 
 
 router = APIRouter(tags=["Main"])
 
-templates = Jinja2Templates(directory="templates")
+templates = obter_jinja_templates("templates/main")
 
 
 @router.get("/html/{arquivo}")
@@ -28,17 +29,17 @@ def get_html(arquivo: str):
 
 @router.get("/")
 def get_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("pages/index.html", {"request": request})
 
 
 @router.get("/sobre")
 def get_sobre(request: Request):
-    return templates.TemplateResponse("sobre.html", {"request": request})
+    return templates.TemplateResponse("pages/sobre.html", {"request": request})
 
 
 @router.get("/cadastro")
 def get_cadastro(request: Request):
-    return templates.TemplateResponse("cadastro.html", {"request": request})
+    return templates.TemplateResponse("pages/cadastro.html", {"request": request})
 
 
 @router.post("/post_cadastro", response_class=JSONResponse)
@@ -56,12 +57,12 @@ async def post_cadastro(usuario_dto: NovoUsuarioDTO):
 
 @router.get("/cadastro_realizado")
 def get_cadastro_realizado(request: Request):
-    return templates.TemplateResponse("cadastro_confirmado.html", {"request": request})
+    return templates.TemplateResponse("pages/cadastro_confirmado.html", {"request": request})
 
 
 @router.get("/entrar")
 async def get_entrar(request: Request, return_url: str = Query("/")):
-    return templates.TemplateResponse("entrar.html", {"request": request, "return_url": return_url})
+    return templates.TemplateResponse("pages/entrar.html", {"request": request, "return_url": return_url})
 
 
 @router.post("/post_entrar", response_class=JSONResponse)
