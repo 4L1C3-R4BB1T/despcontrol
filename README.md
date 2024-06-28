@@ -45,7 +45,7 @@ uvicorn main:app --reload
 
 ---
 
-## Usuários pré-cadastrados
+## 👩‍💼Usuários Teste
 
 ```
 email: joao@email.com  
