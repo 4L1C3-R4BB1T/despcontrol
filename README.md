@@ -10,6 +10,8 @@ O trabalho foi desenvolvido por [Gabriel Cardoso Girarde](https://github.com/GNo
 
 ## ⚙️ Como executar o projeto
 
+### 🐳 Docker 
+
 Execute o comando abaixo para criar e executar o container docker:
 
 ```bash
@@ -22,17 +24,21 @@ Acesse o projeto pelo link:
 http://localhost:8071
 ```
 
-Para acessar o projeto online:
+### 🐍 PythonDebug
+
+No VSCode, execute com ```Ctrl + F5```. 
+
+Acesse o projeto pelo link:
+
+```bash
+http://localhost:8000
+```
+
+### 🌐 Para acessar o projeto online:
 
 ```bash
 https://despcontrol.cachoeiro.es
 ```
-
----
-
-## Execução com PythonDebug
-
-- No VSCode, execute com Ctrl + F5
 
 ---
 
@@ -48,25 +54,24 @@ senha: S3nh@
 
 ---
 
-
 ## 💻 Funcionalidades 
 
-* Usuário
-    * Cadastrar usuário
-    * Alterar Perfil
-    * Alterar Senha  
-    * Recuperar Senha
+### 👤 Usuário
+* Cadastrar usuário
+* Alterar Perfil
+* Alterar Senha  
+* Recuperar Senha
 
-* Despesa   
-    * Cadastrar despesa  
-    * Alterar despesa  
-    * Excluir despesa     
-    * Buscar despesa por descrição    
+### 💲 Despesa   
+* Cadastrar despesa  
+* Alterar despesa
+* Excluir despesa
+* Buscar despesa por descrição    
 
-* Categoria
-    * Cadastrar categoria
-    * Alterar categoria
-    * Excluir categoria  
+### 🏷️ Categoria
+* Cadastrar categoria
+* Alterar categoria
+* Excluir categoria  
 
 ---
 
