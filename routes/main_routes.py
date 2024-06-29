@@ -44,6 +44,10 @@ def get_cadastro(request: Request):
 
 @router.post("/post_cadastro", response_class=JSONResponse)
 async def post_cadastro(usuario_dto: NovoUsuarioDTO):
+    response = JSONResponse({"redirect": {"url": "/cadastro"}})
+    if UsuarioRepo.obter_por_email(usuario_dto.email):
+        adicionar_mensagem_erro(response, "Já existe um usuário com o email informado cadastrado!")
+        return response
     # Remover campo confirmacao_senha antes de inserir no banco de dados
     usuario_data = usuario_dto.model_dump(exclude={"confirmacao_senha"})
     usuario_data["senha"] = obter_hash_senha(usuario_data["senha"])
