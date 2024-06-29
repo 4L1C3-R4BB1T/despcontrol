@@ -75,3 +75,9 @@ SQL_ALTERAR_SENHA = """
     SET senha=?
     WHERE id=?
 """
+
+SQL_RECUPERAR_SENHA = """
+    UPDATE usuario
+    SET senha=?
+    WHERE email=?
+"""

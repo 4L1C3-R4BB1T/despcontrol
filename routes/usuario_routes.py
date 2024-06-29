@@ -1,7 +1,6 @@
 import math
 from fastapi import APIRouter, HTTPException, Request, status
 from fastapi.responses import JSONResponse, RedirectResponse
-from fastapi.templating import Jinja2Templates
 
 from dtos.alterar_categoria_dto import AlterarCategoriaDTO
 from dtos.alterar_despesa_dto import AlterarDespesaDTO

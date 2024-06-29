@@ -1,16 +1,16 @@
 from sqlite3 import DatabaseError
 from fastapi import APIRouter, HTTPException, Query, Request, status
 from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.templating import Jinja2Templates
 
 from dtos.entrar_dto import EntrarDTO
 from dtos.novo_usuario_dto import NovoUsuarioDTO
+from dtos.recuperar_senha_dto import RecuperarSenhaDTO
 from models.usuario_model import Usuario
 from repositories.categoria_repo import CategoriaRepo
 from repositories.usuario_repo import UsuarioRepo
 from util.auth import conferir_senha, gerar_token, obter_hash_senha
 
-from util.cookies import adicionar_cookie_auth, adicionar_mensagem_sucesso
+from util.cookies import adicionar_cookie_auth, adicionar_mensagem_erro, adicionar_mensagem_sucesso
 from util.html import ler_html
 from util.pydantic import create_validation_errors
 from util.templates import obter_jinja_templates
@@ -87,4 +87,21 @@ async def post_entrar(entrar_dto: EntrarDTO):
     response = JSONResponse(content={"redirect": {"url": entrar_dto.return_url}})
     adicionar_mensagem_sucesso(response, f"Olá, <b>{usuario_entrou.nome}</b>. Seja bem-vindo(a) ao DespControl!")
     adicionar_cookie_auth(response, token)
+    return response
+
+
+@router.get("/recuperacaosenha")
+async def get_senha(request: Request):
+    return templates.TemplateResponse("pages/recuperar_senha.html", {"request": request})
+
+
+@router.post("/post_recuperacaosenha", response_class=JSONResponse)
+async def post_senha(recuperar_dto: RecuperarSenhaDTO):    
+    email = recuperar_dto.email
+    senha = obter_hash_senha(recuperar_dto.nova_senha)
+    response = JSONResponse({"redirect": {"url": "/entrar"}})
+    if UsuarioRepo.recuperar_senha(senha, email):
+        adicionar_mensagem_sucesso(response, "Senha alterada com sucesso!")
+    else:
+        adicionar_mensagem_erro(response, "Não foi possível alterar sua senha!")
     return response

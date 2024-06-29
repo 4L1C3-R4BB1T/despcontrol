@@ -181,6 +181,17 @@ class UsuarioRepo:
             return False
 
     @classmethod
+    def recuperar_senha(cls, senha: str, email: str) -> bool:
+        try:
+            with obter_conexao() as conexao:
+                cursor = conexao.cursor()
+                cursor.execute(SQL_RECUPERAR_SENHA, (senha, email))
+                return cursor.rowcount > 0
+        except sqlite3.Error as ex:
+            print(ex)
+            return False
+
+    @classmethod
     def inserir_usuarios_json(cls, arquivo_json: str):
         if UsuarioRepo.obter_quantidade() == 0:
             with open(arquivo_json, "r", encoding="utf-8") as arquivo:

@@ -30,6 +30,12 @@ https://despcontrol.cachoeiro.es
 
 ---
 
+## Execução com PythonDebug
+
+- No VSCode, execute com Ctrl + F5
+
+---
+
 ## 👩‍💼Usuários Teste
 
 ```
@@ -48,12 +54,15 @@ senha: S3nh@
 * Usuário
     * Cadastrar usuário
     * Alterar Perfil
-    * Alterar Senha
+    * Alterar Senha  
+    * Recuperar Senha
+<br>
 * Despesa 
     * Cadastrar despesa
     * Alterar despesa
     * Excluir despesa  
     * Buscar despesa por descrição  
+<br>
 * Categoria
     * Cadastrar categoria
     * Alterar categoria
@@ -64,4 +73,3 @@ senha: S3nh@
 ## 📌 Modelo
 
 ![Modelo](https://github.com/4L1C3-R4BB1T/despcontrol/blob/main/modelo.png)
-
