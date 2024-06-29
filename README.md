@@ -56,13 +56,13 @@ senha: S3nh@
     * Alterar Perfil
     * Alterar Senha  
     * Recuperar Senha
-<br>
-* Despesa 
-    * Cadastrar despesa
-    * Alterar despesa
-    * Excluir despesa  
-    * Buscar despesa por descrição  
-<br>
+
+* Despesa   
+    * Cadastrar despesa  
+    * Alterar despesa  
+    * Excluir despesa     
+    * Buscar despesa por descrição    
+
 * Categoria
     * Cadastrar categoria
     * Alterar categoria
