@@ -34,12 +34,6 @@ Acesse o projeto pelo link:
 http://localhost:8000
 ```
 
-### 🌐 Para acessar o projeto online:
-
-```bash
-https://despcontrol.cachoeiro.es
-```
-
 ---
 
 ## 👩‍💼Usuários Teste
