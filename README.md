@@ -10,6 +10,12 @@ O trabalho foi desenvolvido por [Gabriel Cardoso Girarde](https://github.com/GNo
 
 ## ⚙️ Como executar o projeto
 
+Clone esse repositório:
+
+```bash
+https://github.com/4L1C3-R4BB1T/despcontrol.git
+```
+
 ### 🐳 Docker 
 
 Execute o comando abaixo para criar e executar o container docker:
