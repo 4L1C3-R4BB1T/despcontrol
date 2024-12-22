@@ -13,7 +13,7 @@ O trabalho foi desenvolvido por [Gabriel Cardoso Girarde](https://github.com/GNo
 Clone esse repositório:
 
 ```bash
-https://github.com/4L1C3-R4BB1T/despcontrol.git
+git clone https://github.com/4L1C3-R4BB1T/despcontrol.git
 ```
 
 ### 🐳 Docker 
